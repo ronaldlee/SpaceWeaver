@@ -8,16 +8,77 @@
 
 #import "SPWMyScene.h"
 
-@interface SPWMyScene ()
+@interface SPWMyScene () {
+    UISwipeGestureRecognizer* swipeUpGestureRecognizer;
+    UISwipeGestureRecognizer* swipeDownGestureRecognizer;
+    UISwipeGestureRecognizer* swipeLeftGestureRecognizer;
+    UISwipeGestureRecognizer* swipeRightGestureRecognizer;
+    
+    UITapGestureRecognizer* tapRecognizer;
+    
+    float top_left_corner_x,top_left_corner_y;
+    float top_right_corner_x,top_right_corner_y;
+    float bottom_left_corner_x,bottom_left_corner_y;
+    float bottom_right_corner_x,bottom_right_corner_y;
+    
+    float left_corner_x, right_corner_x, top_corner_y, bottom_corner_y;
+    
+    bool isWeaveMode;
+}
+
 @property (nonatomic) SKSpriteNode * player;
 
 @end
 
 @implementation SPWMyScene
 
--(id)initWithSize:(CGSize)size {    
+-(void) didMoveToView:(SKView *)view {
+    swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpFrom:)];
+    swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
+    
+    swipeDownGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeDownFrom:)];
+    swipeDownGestureRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+    
+    swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeftFrom:)];
+    swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    
+    swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRightFrom:)];
+    swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    
+    tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTap:)];
+    
+    [view addGestureRecognizer:swipeUpGestureRecognizer];
+    [view addGestureRecognizer:swipeDownGestureRecognizer];
+    [view addGestureRecognizer:swipeLeftGestureRecognizer];
+    [view addGestureRecognizer:swipeRightGestureRecognizer];
+    [view addGestureRecognizer:tapRecognizer];
+}
+
+-(void)willMoveFromView:(SKView*)view {
+    [view removeGestureRecognizer:swipeUpGestureRecognizer];
+    [view removeGestureRecognizer:swipeDownGestureRecognizer];
+    [view removeGestureRecognizer:swipeLeftGestureRecognizer];
+    [view removeGestureRecognizer:swipeRightGestureRecognizer];
+    [view removeGestureRecognizer:tapRecognizer];
+}
+
+-(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        
+        top_left_corner_x = left_corner_x = BORDER_SIDE_MARGIN;
+        top_left_corner_y = top_corner_y = [[UIScreen mainScreen] bounds].size.height - top_hud_height;
+        
+        top_right_corner_x = right_corner_x = [[UIScreen mainScreen] bounds].size.width - BORDER_SIDE_MARGIN;
+        top_right_corner_y = [[UIScreen mainScreen] bounds].size.height - top_hud_height;
+        
+        
+        bottom_left_corner_x = BORDER_SIDE_MARGIN;
+        bottom_left_corner_y = bottom_corner_y = bottom_hud_height;
+        
+        bottom_right_corner_x = [[UIScreen mainScreen] bounds].size.width - BORDER_SIDE_MARGIN;
+        bottom_right_corner_y = bottom_hud_height;
+        
         
         self.backgroundColor = [SKColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         
@@ -131,6 +192,87 @@
     [self addChild:border_right];
     
 }
+
+- (void)handleSwipeUpFrom:(UIGestureRecognizer*)recognizer {
+    CGFloat player_x = [self player].position.x;
+    CGFloat player_y = [self player].position.y;
+    
+    if ((player_x == left_corner_x+player_width) ||
+        (player_x == right_corner_x-player_width) ){
+        isWeaveMode = FALSE;
+    }
+    
+    if (!isWeaveMode) {
+        [[self player] removeAllActions];
+        
+        CGPoint toPoint = CGPointMake(player_x, top_corner_y-player_height);
+        
+        CGFloat distance = toPoint.y - player_y;
+        CGFloat duration = distance/speed;
+        
+        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        
+        [[self player] runAction:movePlayer];
+    }
+    
+}
+- (void)handleSwipeDownFrom:(UIGestureRecognizer*)recognizer {
+    
+}
+- (void)handleSwipeLeftFrom:(UIGestureRecognizer*)recognizer {
+    //swipe left only work when player's y position is either at top or bottom
+    //otherwise, that becomes weaving mode
+    CGFloat player_x = [self player].position.x;
+    CGFloat player_y = [self player].position.y;
+    
+    
+    if ((player_y == bottom_corner_y+player_height) ||
+        (player_y == top_corner_y-player_height) ){
+        isWeaveMode = FALSE;
+    }
+    
+    if (!isWeaveMode) {
+        [[self player] removeAllActions];
+        
+        CGPoint toPoint = CGPointMake(left_corner_x+player_width, player_y);
+        
+        CGFloat distance = player_x - toPoint.x;
+        CGFloat duration = distance/speed;
+        
+        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        
+        [[self player] runAction:movePlayer];
+    }
+    
+}
+- (void)handleSwipeRightFrom:(UIGestureRecognizer*)recognizer {
+    CGFloat player_x = [self player].position.x;
+    CGFloat player_y = [self player].position.y;
+    
+    if ((player_y == bottom_corner_y+player_height) ||
+        (player_y == top_corner_y-player_height) ){
+        isWeaveMode = FALSE;
+    }
+    
+    if (!isWeaveMode) {
+        [[self player] removeAllActions];
+        
+        CGPoint toPoint = CGPointMake(right_corner_x-player_width, player_y);
+        
+        CGFloat distance = toPoint.x-player_x ;
+        CGFloat duration = distance/speed;
+        
+        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        
+        [[self player] runAction:movePlayer];
+    }
+    
+}
+
+-(void)handleTap:(UITapGestureRecognizer*)recognizer {
+    [[self player] removeAllActions];
+}
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */

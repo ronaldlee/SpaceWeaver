@@ -22,4 +22,7 @@ float const top_hud_height = 30;
 
 float const BORDER_SIDE_MARGIN=2;
 
+const CGFloat speed = 100;
+
+
 @end

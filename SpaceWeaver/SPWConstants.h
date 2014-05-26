@@ -22,6 +22,8 @@ extern float const pixel_widthheight_x3;
 extern float const bottom_hud_height;
 extern float const top_hud_height;
 
+extern CGFloat const speed;
+
 extern float const BORDER_SIDE_MARGIN;
 
 typedef enum {
