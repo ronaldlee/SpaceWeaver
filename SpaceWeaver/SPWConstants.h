@@ -16,7 +16,7 @@ extern float const player_height;
 extern float const pixel_widthheight_x2;
 extern float const pixel_widthheight_x3;
 
-#define PLAYER_COLOR [UIColor whiteColor]
+#define PLAYER_COLOR [UIColor redColor]
 #define BORDER_COLOR [UIColor whiteColor]
 
 extern float const bottom_hud_height;
