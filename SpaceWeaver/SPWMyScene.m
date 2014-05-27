@@ -279,6 +279,15 @@
         isWeaveMode = TRUE;
     }
     
+    if (player_current_border == BORDER_BOTTOM) {
+        if (player_x == player_left_border_x) {
+            [self playerTransfromBottomToLeft];
+        }
+        else {
+            [self playerTransfromBottomToRight];
+        }
+    }
+    
     if (!isWeaveMode) {
         [[self player] removeAllActions];
         
@@ -314,6 +323,15 @@
     if (!isWeaveMode) {
         [[self player] removeAllActions];
         
+        if (player_current_border == BORDER_TOP) {
+            if (player_x == player_right_border_x) {
+                [self playerTransfromTopToRight];
+            }
+            else {
+                [self playerTransfromTopToLeft];
+            }
+        }
+        
         CGPoint toPoint = CGPointMake(player_x, player_bottom_border_y);
         
         CGFloat distance = player_y-toPoint.y;
@@ -348,6 +366,15 @@
     
     if (!isWeaveMode) {
         [[self player] removeAllActions];
+        
+        if (player_current_border == BORDER_RIGHT) {
+            if (player_y == player_bottom_border_y) {
+                [self playerTransfromRightToBottom];
+            }
+            else {
+                [self playerTransfromRightToTop];
+            }
+        }
         
         CGPoint toPoint = CGPointMake(player_left_border_x, player_y);
         
@@ -385,6 +412,15 @@
     
     if (!isWeaveMode) {
         [[self player] removeAllActions];
+        
+        if (player_current_border == BORDER_LEFT) {
+            if (player_y == player_bottom_border_y) {
+                [self playerTransfromLeftToBottom];
+            }
+            else {
+                [self playerTransfromLeftToTop];
+            }
+        }
         
         CGPoint toPoint = CGPointMake(player_right_border_x, player_y);
         
