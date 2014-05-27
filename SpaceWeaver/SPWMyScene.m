@@ -117,11 +117,11 @@
         [self.player addChild:self.playerA];
         self.playerA.position = CGPointMake(pixel_widthheight*[UIScreen mainScreen].scale,pixel_widthheight*scale);
         
-        self.playerB = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[self createYellowBlockImage]]];
+        self.playerB = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[self createBlockImage]]];
         [self.player addChild:self.playerB];
         self.playerB.position = CGPointMake(0,0);
 
-        self.playerC = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[self createBlueBlockImage]]];
+        self.playerC = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[self createBlockImage]]];
         [self.player addChild:self.playerC];
         self.playerC.position = CGPointMake(pixel_widthheight*scale,0);
         
@@ -494,6 +494,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_LEFT;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeUpFrom:nil];
         }];
     }];
 }
@@ -536,6 +538,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_TOP;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeRightFrom:nil];
         }];
     }];
     
@@ -579,6 +583,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_RIGHT;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeDownFrom:nil];
         }];
     }];
     
@@ -622,6 +628,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_BOTTOM;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeLeftFrom:nil];
         }];
     }];
     
@@ -666,6 +674,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_RIGHT;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeUpFrom:nil];
         }];
     }];
 }
@@ -707,6 +717,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_TOP;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeLeftFrom:nil];
         }];
     }];
 }
@@ -748,6 +760,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_LEFT;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeDownFrom:nil];
         }];
     }];
 }
@@ -789,6 +803,8 @@
         [[self playerC] runAction:movePlayerC2 completion:^ {
             player_current_border = BORDER_BOTTOM;
             isPlayerTransforming = FALSE;
+            
+            [self handleSwipeRightFrom:nil];
         }];
     }];
 }
