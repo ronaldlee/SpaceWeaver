@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpaceWeaver/SPWMyScene.m"
-            timestampString = "422838816.025196"
+            timestampString = "422848100.356104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "-handleSwipeLeftFrom:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,13 +26,73 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpaceWeaver/SPWMyScene.m"
-            timestampString = "422838816.025196"
+            timestampString = "422847990.654301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "-handleSwipeUpFrom:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SpaceWeaver/SPWMyScene.m"
+            timestampString = "422848100.356104"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
+            landmarkName = "-handleSwipeUpFrom:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SPWMyScene handleSwipeUpFrom:]"
+                  moduleName = "SpaceWeaver"
+                  urlString = "file://localhost/Users/ronaldlee/iphone/SpaceWeaver/SpaceWeaver/SPWMyScene.m"
+                  timestampString = "422848100.417514"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "281"
+                  endingLineNumber = "281"
+                  offsetFromSymbolStart = "692">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SPWMyScene handleSwipeUpFrom:]"
+                  moduleName = "SpaceWeaver"
+                  urlString = "file://localhost/Users/ronaldlee/iphone/SpaceWeaver/SpaceWeaver/SPWMyScene.m"
+                  timestampString = "422848100.417875"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "281"
+                  endingLineNumber = "281"
+                  offsetFromSymbolStart = "876">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__32-[SPWMyScene handleSwipeUpFrom:]_block_invoke"
+                  moduleName = "SpaceWeaver"
+                  urlString = "file://localhost/Users/ronaldlee/iphone/SpaceWeaver/SpaceWeaver/SPWMyScene.m"
+                  timestampString = "422848100.418255"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "281"
+                  endingLineNumber = "281"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
