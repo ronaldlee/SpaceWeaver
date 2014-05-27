@@ -31,7 +31,7 @@
     
     bool isPlayerTransforming;
     
-    float player_bottom_border_y, player_top_border_y, player_left_border_x;
+    float player_bottom_border_y, player_top_border_y, player_left_border_x, player_right_border_x;
 }
 
 @property (nonatomic) SKSpriteNode * player;
@@ -102,6 +102,7 @@
         player_bottom_border_y = bottom_corner_y+pixel_widthheight+1;
         player_top_border_y = top_corner_y-pixel_widthheight*2*scale-3;
         player_left_border_x = left_corner_x+3;
+        player_right_border_x = right_corner_x-11;
         
         CGSize player_size = CGSizeMake(0, 0);
         
@@ -303,7 +304,7 @@
     
     isWeaveMode=FALSE;
     if (!(player_y == player_bottom_border_y) &&
-        !(player_y == top_corner_y-player_height) ){
+        !(player_y == player_top_border_y) ){
         isWeaveMode = TRUE;
     }
     
@@ -332,8 +333,6 @@
 }
 
 
-
-
 - (void)handleSwipeRightFrom:(UIGestureRecognizer*)recognizer {
     if (isPlayerTransforming) return;
     
@@ -341,22 +340,26 @@
     CGFloat player_y = [self player].position.y;
     
     isWeaveMode=FALSE;
-    if (!(player_y == bottom_corner_y+player_height) &&
-        !(player_y == top_corner_y-player_height) ){
+    if (!(player_y == player_bottom_border_y) &&
+        !(player_y == player_top_border_y) ){
         isWeaveMode = TRUE;
     }
     
     if (!isWeaveMode) {
         [[self player] removeAllActions];
         
-        CGPoint toPoint = CGPointMake(right_corner_x-11, player_y);
+        CGPoint toPoint = CGPointMake(player_right_border_x, player_y);
         
         CGFloat distance = toPoint.x-player_x ;
         CGFloat duration = distance/speed;
         
         SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
         
-        [[self player] runAction:movePlayer];
+        [[self player] runAction:movePlayer completion:^{
+            if (player_y == player_top_border_y) {
+                [self playerTransfromTopToRight];
+            }
+        }];
     }
     
 }
@@ -383,7 +386,7 @@
     CGPoint b_toPoint = CGPointMake([self playerB].position.x, pixel_widthheight_x2*scale);
     
     CGFloat distance = b_toPoint.y-[self playerB].position.y ;
-    CGFloat duration = distance/speed*0.1;
+    CGFloat duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerB = [SKAction moveTo:b_toPoint duration:duration];
     [[self playerB] runAction:movePlayerB];
@@ -392,7 +395,7 @@
     CGPoint d_toPoint = CGPointMake(0, [self playerD].position.y);
     
     distance = [self playerD].position.x-d_toPoint.x ;
-    duration = distance/speed*0.1;
+    duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerD = [SKAction moveTo:d_toPoint duration:duration];
     [[self playerD] runAction:movePlayerD];
@@ -401,14 +404,14 @@
     CGPoint c_toPoint = CGPointMake(0, [self playerC].position.y);
     
     distance = [self playerC].position.x-c_toPoint.x ;
-    duration = distance/speed*0.1;
+    duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerC = [SKAction moveTo:c_toPoint duration:duration];
     [[self playerC] runAction:movePlayerC completion:^ {
         CGPoint c_toPoint = CGPointMake([self playerC].position.x, pixel_widthheight*scale);
         
         CGFloat distance = c_toPoint.y-[self playerC].position.y ;
-        CGFloat duration = distance/speed*0.1;
+        CGFloat duration = distance/speed*transform_speed_factor;
         
         SKAction *movePlayerC2 = [SKAction moveTo:c_toPoint duration:duration];
         [[self playerC] runAction:movePlayerC2 completion:^ {
@@ -426,7 +429,7 @@
     CGPoint b_toPoint = CGPointMake(pixel_widthheight_x2*scale, [self playerB].position.y);
     
     CGFloat distance = b_toPoint.x-[self playerB].position.x ;
-    CGFloat duration = distance/speed*0.1;
+    CGFloat duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerB = [SKAction moveTo:b_toPoint duration:duration];
     [[self playerB] runAction:movePlayerB];
@@ -435,7 +438,7 @@
     CGPoint d_toPoint = CGPointMake([self playerD].position.x, pixel_widthheight_x2*scale);
     
     distance = d_toPoint.y - [self playerD].position.y ;
-    duration = distance/speed*0.1;
+    duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerD = [SKAction moveTo:d_toPoint duration:duration];
     [[self playerD] runAction:movePlayerD];
@@ -444,14 +447,14 @@
     CGPoint c_toPoint = CGPointMake([self playerC].position.x,pixel_widthheight_x2*scale);
     
     distance = c_toPoint.y - [self playerC].position.y ;
-    duration = distance/speed*0.1;
+    duration = distance/speed*transform_speed_factor;
     
     SKAction *movePlayerC = [SKAction moveTo:c_toPoint duration:duration];
     [[self playerC] runAction:movePlayerC completion:^ {
         CGPoint c_toPoint = CGPointMake(pixel_widthheight*scale,[self playerC].position.y);
         
         CGFloat distance = c_toPoint.x-[self playerC].position.x ;
-        CGFloat duration = distance/speed*0.1;
+        CGFloat duration = distance/speed*transform_speed_factor;
         
         SKAction *movePlayerC2 = [SKAction moveTo:c_toPoint duration:duration];
         [[self playerC] runAction:movePlayerC2 completion:^ {
@@ -463,5 +466,52 @@
     
     [[self playerC] runAction:movePlayerC];
 }
+
+-(void)playerTransfromTopToRight {
+    isPlayerTransforming=TRUE;
+    //B
+    CGPoint b_toPoint = CGPointMake([self playerB].position.x, 0);
+    
+    CGFloat distance = [self playerB].position.y-b_toPoint.x ;
+    CGFloat duration = distance/speed*transform_speed_factor;
+    
+    SKAction *movePlayerB = [SKAction moveTo:b_toPoint duration:duration];
+    [[self playerB] runAction:movePlayerB];
+    
+    //D
+    CGPoint d_toPoint = CGPointMake(pixel_widthheight_x2*scale, [self playerD].position.y);
+    
+    distance = d_toPoint.x - [self playerD].position.x ;
+    duration = distance/speed*transform_speed_factor;
+    
+    SKAction *movePlayerD = [SKAction moveTo:d_toPoint duration:duration];
+    [[self playerD] runAction:movePlayerD];
+    
+    //C
+    CGPoint c_toPoint = CGPointMake(pixel_widthheight_x2*scale,[self playerC].position.y);
+    
+    distance = c_toPoint.x - [self playerC].position.x ;
+    duration = distance/speed*transform_speed_factor;
+    
+    SKAction *movePlayerC = [SKAction moveTo:c_toPoint duration:duration];
+    [[self playerC] runAction:movePlayerC completion:^ {
+        CGPoint c_toPoint = CGPointMake([self playerC].position.x,pixel_widthheight*scale);
+        
+        CGFloat distance = [self playerC].position.y-c_toPoint.y ;
+        CGFloat duration = distance/speed*transform_speed_factor;
+        
+        SKAction *movePlayerC2 = [SKAction moveTo:c_toPoint duration:duration];
+        [[self playerC] runAction:movePlayerC2 completion:^ {
+            //indicate the orientation now is left border
+            player_current_border = BORDER_RIGHT;
+            isPlayerTransforming = FALSE;
+        }];
+    }];
+    
+    [[self playerC] runAction:movePlayerC];
+}
+
+
+
 
 @end

@@ -23,6 +23,7 @@ extern float const bottom_hud_height;
 extern float const top_hud_height;
 
 extern CGFloat const speed;
+extern float const transform_speed_factor;
 
 extern float const BORDER_SIDE_MARGIN;
 
