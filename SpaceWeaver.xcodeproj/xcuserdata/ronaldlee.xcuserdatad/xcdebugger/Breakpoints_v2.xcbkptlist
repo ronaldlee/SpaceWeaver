@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpaceWeaver/SPWMyScene.m"
-            timestampString = "422852189.01822"
+            timestampString = "423237721.72211"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "-handleSwipeRightFrom:"
             landmarkType = "5">
          </BreakpointContent>

@@ -268,6 +268,7 @@
 }
 
 - (void)handleSwipeUpFrom:(UIGestureRecognizer*)recognizer {
+    NSLog(@"handleSwipeUpFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     
     CGFloat player_x = [self player].position.x;
@@ -291,12 +292,10 @@
     if (!isWeaveMode) {
         [[self player] removeAllActions];
         
-        CGPoint toPoint = CGPointMake(player_x, player_top_border_y);
-        
-        CGFloat distance = toPoint.y - player_y;
+        CGFloat distance = player_top_border_y - player_y;
         CGFloat duration = distance/speed;
         
-        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        SKAction *movePlayer = [SKAction moveToY:player_top_border_y duration:duration];
         
         [[self player] runAction:movePlayer completion:^{
             if (player_x == player_left_border_x) {
@@ -310,6 +309,7 @@
     
 }
 - (void)handleSwipeDownFrom:(UIGestureRecognizer*)recognizer {
+    NSLog(@"handleSwipeDownFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     CGFloat player_x = [self player].position.x;
     CGFloat player_y = [self player].position.y;
@@ -332,12 +332,10 @@
             }
         }
         
-        CGPoint toPoint = CGPointMake(player_x, player_bottom_border_y);
-        
-        CGFloat distance = player_y-toPoint.y;
+        CGFloat distance = player_y-player_bottom_border_y;
         CGFloat duration = distance/speed;
         
-        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        SKAction *movePlayer = [SKAction moveToY:player_bottom_border_y duration:duration];
         
         [[self player] runAction:movePlayer completion:^{
             if (player_x == player_right_border_x) {
@@ -351,6 +349,7 @@
 
 }
 - (void)handleSwipeLeftFrom:(UIGestureRecognizer*)recognizer {
+    NSLog(@"handleSwipeLeftFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     
     //swipe left only work when player's y position is either at top or bottom
@@ -364,6 +363,8 @@
         isWeaveMode = TRUE;
     }
     
+    NSLog(@"handleSwipeLeftFrom: isWeaveMode %d, player_y: %f", isWeaveMode, player_y);
+    
     if (!isWeaveMode) {
         [[self player] removeAllActions];
         
@@ -376,12 +377,10 @@
             }
         }
         
-        CGPoint toPoint = CGPointMake(player_left_border_x, player_y);
-        
-        CGFloat distance = player_x - toPoint.x;
+        CGFloat distance = player_x - player_left_border_x;
         CGFloat duration = distance/speed;
         
-        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        SKAction *movePlayer = [SKAction moveToX:player_left_border_x duration:duration];
         
         [[self player] runAction:movePlayer completion:^{
             
@@ -399,6 +398,7 @@
 
 
 - (void)handleSwipeRightFrom:(UIGestureRecognizer*)recognizer {
+    NSLog(@"handleSwipeRightFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     
     CGFloat player_x = [self player].position.x;
@@ -409,6 +409,8 @@
         !(player_y == player_top_border_y) ){
         isWeaveMode = TRUE;
     }
+    
+    NSLog(@"handleSwipeRightFrom: isWeaveMode %d, player_y: %f", isWeaveMode, player_y);
     
     if (!isWeaveMode) {
         [[self player] removeAllActions];
@@ -422,12 +424,10 @@
             }
         }
         
-        CGPoint toPoint = CGPointMake(player_right_border_x, player_y);
-        
-        CGFloat distance = toPoint.x-player_x ;
+        CGFloat distance = player_right_border_x-player_x ;
         CGFloat duration = distance/speed;
         
-        SKAction *movePlayer = [SKAction moveTo:toPoint duration:duration];
+        SKAction *movePlayer = [SKAction moveToX:player_right_border_x duration:duration];
         
         [[self player] runAction:movePlayer completion:^{
             if (player_y == player_top_border_y) {
