@@ -106,7 +106,7 @@
         
         CGSize player_size = CGSizeMake(0, 0);
         
-        self.player = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:player_size];
+        self.player = [SKSpriteNode node];  //[SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:player_size];
         
         self.player.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-player_width)/2,
                                            //bottom_hud_height+pixel_widthheight);
