@@ -284,7 +284,7 @@
         if (player_x == player_left_border_x) {
             [self playerTransfromBottomToLeft];
         }
-        else {
+        else if (player_x == player_right_border_x) {
             [self playerTransfromBottomToRight];
         }
     }
@@ -327,7 +327,7 @@
             if (player_x == player_right_border_x) {
                 [self playerTransfromTopToRight];
             }
-            else {
+            else if (player_x == player_left_border_x) {
                 [self playerTransfromTopToLeft];
             }
         }
@@ -372,7 +372,7 @@
             if (player_y == player_bottom_border_y) {
                 [self playerTransfromRightToBottom];
             }
-            else {
+            else if (player_y == player_top_border_y) {
                 [self playerTransfromRightToTop];
             }
         }
@@ -419,7 +419,7 @@
             if (player_y == player_bottom_border_y) {
                 [self playerTransfromLeftToBottom];
             }
-            else {
+            else if (player_y == player_top_border_y) {
                 [self playerTransfromLeftToTop];
             }
         }
