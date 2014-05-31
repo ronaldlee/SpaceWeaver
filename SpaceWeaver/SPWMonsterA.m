@@ -17,6 +17,8 @@
     float scale;
     
     float max_width, max_height;
+    
+    CGFloat fly_duration;
 }
 @end
 
@@ -40,6 +42,8 @@
 - (id)initWithScale:(CGFloat)f_scale {
     self = [super init];
     if (self) {
+        fly_duration = 0.2;
+        
         // Initialize self.
         scale = f_scale;
         
@@ -120,43 +124,116 @@
 }
 
 -(void)animateFly {
-    CGFloat duration = 0.2;
     
     //hand 1
-    SKAction *mh1_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:duration];
+    SKAction *mh_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
-    SKAction *mh1_act_down = [SKAction moveToY:0 duration:duration];
+    SKAction *mh_act_down = [SKAction moveToY:0 duration:fly_duration];
     
-    SKAction* sequence=[SKAction sequence:@[mh1_act_up,mh1_act_down]];
+    SKAction* sequence=[SKAction sequence:@[mh_act_up,mh_act_down]];
     
     [m_hand_1 runAction:[SKAction repeatActionForever:sequence]];
     
     //hand 2
-    SKAction *mh2_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:duration];
     
-    SKAction *mh2_act_down = [SKAction moveToY:0 duration:duration];
-    
-    sequence=[SKAction sequence:@[mh1_act_up,mh2_act_down]];
+    sequence=[SKAction sequence:@[mh_act_up,mh_act_down]];
     
     [m_hand_2 runAction:[SKAction repeatActionForever:sequence]];
     
     //hand 3
-    SKAction *mh3_act_down = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale*2 duration:duration];
+    mh_act_down = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale*2 duration:fly_duration];
     
-    SKAction *mh3_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:duration];
+    mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
-    sequence=[SKAction sequence:@[mh3_act_down,mh3_act_up]];
+    sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
     
     [m_hand_3 runAction:[SKAction repeatActionForever:sequence]];
     
     //hand 4
-    SKAction *mh4_act_down = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale*2 duration:duration];
     
-    SKAction *mh4_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:duration];
-    
-    sequence=[SKAction sequence:@[mh4_act_down,mh4_act_up]];
+    sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
     
     [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
 }
+
+-(void)walkLeft {
+    //hand 1
+    SKAction *mh_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    SKAction *mh_act_down = [SKAction moveToY:0 duration:fly_duration];
+    
+    SKAction* sequence=[SKAction sequence:@[mh_act_up,mh_act_down]];
+    
+    [m_hand_1 runAction:[SKAction repeatActionForever:sequence]];
+    
+    //hand 3
+    mh_act_down = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale*2 duration:fly_duration];
+    
+    mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
+    
+    [m_hand_3 runAction:[SKAction repeatActionForever:sequence]];
+}
+
+-(void)walkRight {
+    //hand 2
+    SKAction *mh_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    SKAction *mh_act_down = [SKAction moveToY:0 duration:fly_duration];
+    
+    SKAction *sequence=[SKAction sequence:@[mh_act_up,mh_act_down]];
+    
+    [m_hand_2 runAction:[SKAction repeatActionForever:sequence]];
+    
+    //hand 4
+    mh_act_down = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale*2 duration:fly_duration];
+    
+    mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
+    
+    [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
+}
+
+-(void)walkTop {
+    SKAction *mh_act_right = [SKAction moveToX:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    SKAction *mh_act_left = [SKAction moveToX:0 duration:fly_duration];
+    
+    SKAction* sequence=[SKAction sequence:@[mh_act_right,mh_act_left]];
+    
+    [m_hand_3 runAction:[SKAction repeatActionForever:sequence]];
+    
+    //hand 4
+    mh_act_left = [SKAction moveToX:max_width-PIXEL_WIDTHHEIGHT*scale*2 duration:fly_duration];
+    
+    mh_act_right = [SKAction moveToX:max_width-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    sequence=[SKAction sequence:@[mh_act_left,mh_act_right]];
+    
+    [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
+}
+
+-(void)walkBottom {
+    SKAction *mh_act_right = [SKAction moveToX:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    SKAction *mh_act_left = [SKAction moveToX:0 duration:fly_duration];
+    
+    SKAction* sequence=[SKAction sequence:@[mh_act_right,mh_act_left]];
+    
+    [m_hand_1 runAction:[SKAction repeatActionForever:sequence]];
+    
+    
+    mh_act_left = [SKAction moveToX:max_width-PIXEL_WIDTHHEIGHT*scale*2 duration:fly_duration];
+    
+    mh_act_right = [SKAction moveToX:max_width-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
+    
+    sequence=[SKAction sequence:@[mh_act_left,mh_act_right]];
+    
+    [m_hand_2 runAction:[SKAction repeatActionForever:sequence]];
+}
+
+
 
 @end

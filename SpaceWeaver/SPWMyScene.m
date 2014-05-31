@@ -110,7 +110,12 @@
         
         [self addChild:self.monster];
         
-        [self.monster animateFly];
+//        [self.monster animateFly];
+//        [self.monster walkLeft];
+//        [self.monster walkRight];
+//        [self.monster walkTop];
+        [self.monster walkBottom];
+        
         
     }
     return self;

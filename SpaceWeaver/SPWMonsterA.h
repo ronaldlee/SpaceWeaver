@@ -32,4 +32,12 @@
 
 -(void)animateFly;
 
+-(void)walkLeft;
+
+-(void)walkRight;
+
+-(void)walkTop;
+
+-(void)walkBottom;
+
 @end
