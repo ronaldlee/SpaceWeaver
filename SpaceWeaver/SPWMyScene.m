@@ -31,7 +31,7 @@
 }
 
 @property (nonatomic) SPWPlayer * player;
-@property (nonatomic) SPWMonsterA * monster;
+@property (nonatomic) SPWMonsterA * monster,*monster2;
 
 @end
 
@@ -102,7 +102,7 @@
         [self addChild:self.player];
         
         //add monster
-        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2];
+        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
         self.monster.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
                                            300);
         
@@ -110,11 +110,35 @@
         
         [self addChild:self.monster];
         
-//        [self.monster animateFly];
+        [self.monster animateFly];
 //        [self.monster walkLeft];
 //        [self.monster walkRight];
 //        [self.monster walkTop];
-        [self.monster walkBottom];
+//        [self.monster walkBottom];
+        
+//        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
+        [self.monster flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+//        [self.monster flyAndLandRightAtY:BOTTOM_HUD_HEIGHT+50 Duration:2.0];
+        
+        //monster2
+        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
+        self.monster2.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
+                                            300);
+        
+        [self.monster2 setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
+        
+        [self addChild:self.monster2];
+        
+        [self.monster2 animateFly];
+        //        [self.monster walkLeft];
+        //        [self.monster walkRight];
+        //        [self.monster walkTop];
+        //        [self.monster walkBottom];
+        
+        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
+        [self.monster2
+//            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+            flyAndLandRightAtY:BOTTOM_HUD_HEIGHT+50 Duration:2.0];
         
         
     }

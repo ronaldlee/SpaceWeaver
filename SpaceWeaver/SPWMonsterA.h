@@ -25,7 +25,7 @@
 @property (nonatomic) SKSpriteNode * m_hand_3;
 @property (nonatomic) SKSpriteNode * m_hand_4;
 
-- (id)initWithScale:(CGFloat)scale;
+- (id)initWithScale:(CGFloat)scale StartX:(CGFloat)s_x StartY:(CGFloat)s_y;
 
 -(void)setBorderTopY:(float)player_top_border_y LeftX:(float)player_left_border_x
              BottomY:(float)player_bottom_border_y RightX:(float)player_right_border_x;
@@ -39,5 +39,8 @@
 -(void)walkTop;
 
 -(void)walkBottom;
+
+-(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration;
+-(void)flyAndLandRightAtY:(CGFloat)land_y Duration:(CGFloat)duration;
 
 @end

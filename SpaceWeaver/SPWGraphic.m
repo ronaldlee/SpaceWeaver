@@ -51,4 +51,9 @@
     return blockImage;
 }
 
++(CGPoint)getRandomPoint:(CGRect)bounds {
+    return CGPointMake(CGRectGetMinX(bounds)+arc4random()%(int)CGRectGetWidth(bounds),
+                       CGRectGetMinY(bounds)+arc4random()%(int)CGRectGetHeight(bounds));
+}
+
 @end

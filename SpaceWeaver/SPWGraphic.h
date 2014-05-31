@@ -15,4 +15,6 @@
 +(UIImage*)createYellowBlockImage:(float)scale;
 +(UIImage*)createRedBlockImage:(float)scale;
 
++(CGPoint)getRandomPoint:(CGRect)bounds;
+
 @end
