@@ -10,20 +10,20 @@
 
 @interface SPWConstants : NSObject
 
-extern float const pixel_widthheight;
-extern float const player_width;
-extern float const player_height;
-extern float const pixel_widthheight_x2;
-extern float const pixel_widthheight_x3;
+extern float const PIXEL_WIDTHHEIGHT;
+extern float const PLAYER_WIDTH;
+extern float const PLAYER_HEIGHT;
+extern float const PIXEL_WIDTHHEIGHT_x2;
+extern float const PIXEL_WIDTHHEIGHT_x3;
 
 #define PLAYER_COLOR [UIColor whiteColor]
 #define BORDER_COLOR [UIColor whiteColor]
 
-extern float const bottom_hud_height;
-extern float const top_hud_height;
+extern float const BOTTOM_HUD_HEIGHT;
+extern float const TOP_HUD_HEIGHT;
 
-extern CGFloat const speed;
-extern float const transform_speed_factor;
+extern CGFloat const SPEED;
+extern float const TRANSFORM_SPEED_FACTOR;
 
 extern float const BORDER_SIDE_MARGIN;
 

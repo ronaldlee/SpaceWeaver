@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B44E875E193A216E00C1601A /* SPWPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E875D193A216E00C1601A /* SPWPlayer.m */; };
+		B44E8761193A2E9700C1601A /* SPWGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E8760193A2E9700C1601A /* SPWGraphic.m */; };
 		B46E44611933A2D5002105D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44601933A2D5002105D0 /* Foundation.framework */; };
 		B46E44631933A2D5002105D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44621933A2D5002105D0 /* CoreGraphics.framework */; };
 		B46E44651933A2D5002105D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44641933A2D5002105D0 /* UIKit.framework */; };
@@ -39,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B44E875C193A216E00C1601A /* SPWPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWPlayer.h; sourceTree = "<group>"; };
+		B44E875D193A216E00C1601A /* SPWPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWPlayer.m; sourceTree = "<group>"; };
+		B44E875F193A2E9700C1601A /* SPWGraphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWGraphic.h; sourceTree = "<group>"; };
+		B44E8760193A2E9700C1601A /* SPWGraphic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWGraphic.m; sourceTree = "<group>"; };
 		B46E445D1933A2D5002105D0 /* SpaceWeaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceWeaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B46E44601933A2D5002105D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B46E44621933A2D5002105D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +145,10 @@
 				B46E44691933A2D5002105D0 /* Supporting Files */,
 				B46E44A71933A785002105D0 /* SPWConstants.h */,
 				B46E44A81933A785002105D0 /* SPWConstants.m */,
+				B44E875C193A216E00C1601A /* SPWPlayer.h */,
+				B44E875D193A216E00C1601A /* SPWPlayer.m */,
+				B44E875F193A2E9700C1601A /* SPWGraphic.h */,
+				B44E8760193A2E9700C1601A /* SPWGraphic.m */,
 			);
 			path = SpaceWeaver;
 			sourceTree = "<group>";
@@ -272,7 +282,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B44E8761193A2E9700C1601A /* SPWGraphic.m in Sources */,
 				B46E447C1933A2D5002105D0 /* SPWViewController.m in Sources */,
+				B44E875E193A216E00C1601A /* SPWPlayer.m in Sources */,
 				B46E447F1933A2D5002105D0 /* SPWMyScene.m in Sources */,
 				B46E446F1933A2D5002105D0 /* main.m in Sources */,
 				B46E44A91933A785002105D0 /* SPWConstants.m in Sources */,
@@ -493,6 +505,7 @@
 				B46E449B1933A2D5002105D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B46E449C1933A2D5002105D0 /* Build configuration list for PBXNativeTarget "SpaceWeaverTests" */ = {
 			isa = XCConfigurationList;
@@ -501,6 +514,7 @@
 				B46E449E1933A2D5002105D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

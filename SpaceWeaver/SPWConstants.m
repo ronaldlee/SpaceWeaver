@@ -10,20 +10,20 @@
 
 @implementation SPWConstants
 
-float const pixel_widthheight = 2;
-float const pixel_widthheight_x2 = pixel_widthheight*2;
-float const pixel_widthheight_x3 = pixel_widthheight*3;
+float const PIXEL_WIDTHHEIGHT =2;
+float const PIXEL_WIDTHHEIGHT_x2 = PIXEL_WIDTHHEIGHT*2;
+float const PIXEL_WIDTHHEIGHT_x3 = PIXEL_WIDTHHEIGHT*3;
 
-float const player_width = pixel_widthheight*3;
-float const player_height = pixel_widthheight*2;
+float const PLAYER_WIDTH = PIXEL_WIDTHHEIGHT*3;
+float const PLAYER_HEIGHT = PIXEL_WIDTHHEIGHT*2;
 
-float const bottom_hud_height = 100;
-float const top_hud_height = 30;
+float const BOTTOM_HUD_HEIGHT = 100;
+float const TOP_HUD_HEIGHT = 30;
 
 float const BORDER_SIDE_MARGIN=2;
 
-const CGFloat speed = 100;
-float const transform_speed_factor = 0.5;
+const CGFloat SPEED = 100;
+float const TRANSFORM_SPEED_FACTOR = 0.5;
 
 
 @end
