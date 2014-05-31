@@ -8,6 +8,7 @@
 
 #import "SPWMyScene.h"
 #import "SPWPlayer.h"
+#import "SPWMonsterA.h"
 
 @interface SPWMyScene () {
     UISwipeGestureRecognizer* swipeUpGestureRecognizer;
@@ -30,6 +31,7 @@
 }
 
 @property (nonatomic) SPWPlayer * player;
+@property (nonatomic) SPWMonsterA * monster;
 
 @end
 
@@ -98,6 +100,17 @@
         [self.player setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
         
         [self addChild:self.player];
+        
+        //add monster
+        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2];
+        self.monster.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
+                                           300);
+        
+        [self.monster setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
+        
+        [self addChild:self.monster];
+        
+        [self.monster animateFly];
         
     }
     return self;

@@ -32,8 +32,6 @@
         // Initialize self.
         scale = f_scale;
         
-        NSLog(@"scale: %f",scale);
-        
         player_current_border = BORDER_BOTTOM;
         
         self.playerA = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
