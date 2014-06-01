@@ -15,6 +15,7 @@
     float bottom_border_y, top_border_y, left_border_x, right_border_x;
     BORDER player_current_border;
     float scale;
+    CGRect bounds;
 }
 @end
 
@@ -53,12 +54,13 @@
     return self;
 }
 
--(void)setBorderTopY:(float)player_top_border_y LeftX:(float)player_left_border_x
-                BottomY:(float)player_bottom_border_y RightX:(float)player_right_border_x {
-    bottom_border_y = player_bottom_border_y;
-    top_border_y = player_top_border_y;
-    left_border_x = player_left_border_x;
-    right_border_x = player_right_border_x;
+-(void)setBorderBounds:(CGRect)p_bounds {
+    bounds = p_bounds;
+    
+    left_border_x = bounds.origin.x;
+    right_border_x = left_border_x+bounds.size.width;
+    bottom_border_y = bounds.origin.y;
+    top_border_y = bottom_border_y+bounds.size.height;
 }
 
 -(void)moveUp {

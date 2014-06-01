@@ -31,7 +31,7 @@
 }
 
 @property (nonatomic) SPWPlayer * player;
-@property (nonatomic) SPWMonsterA * monster,*monster2;
+@property (nonatomic) SPWMonsterA * monster,*monster2,*monster3,*monster4;
 
 @end
 
@@ -93,11 +93,15 @@
         player_left_border_x = left_corner_x+3;
         player_right_border_x = right_corner_x-11;
         
+        CGRect bounds = CGRectMake(player_left_border_x, player_bottom_border_y,
+                                   player_right_border_x-player_left_border_x,
+                                   player_top_border_y-player_bottom_border_y);
+        
         self.player = [[SPWPlayer alloc] initWithScale:scale];
         self.player.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
                                            player_bottom_border_y);
         
-        [self.player setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
+        [self.player setBorderBounds:bounds];
         
         [self addChild:self.player];
         
@@ -106,7 +110,7 @@
         self.monster.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
                                            300);
         
-        [self.monster setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
+        [self.monster setBorderBounds:bounds];
         
         [self addChild:self.monster];
         
@@ -125,7 +129,7 @@
         self.monster2.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
                                             300);
         
-        [self.monster2 setBorderTopY:player_top_border_y LeftX:player_left_border_x BottomY:player_bottom_border_y RightX:player_right_border_x];
+        [self.monster2 setBorderBounds:bounds];
         
         [self addChild:self.monster2];
         
@@ -140,6 +144,45 @@
 //            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
             flyAndLandRightAtY:BOTTOM_HUD_HEIGHT+50 Duration:2.0];
         
+        //monster3
+        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
+        self.monster3.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
+                                             300);
+        
+        [self.monster3 setBorderBounds:bounds];
+        
+        [self addChild:self.monster3];
+        
+        [self.monster3 animateFly];
+        //        [self.monster walkLeft];
+        //        [self.monster walkRight];
+        //        [self.monster walkTop];
+        //        [self.monster walkBottom];
+        
+        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
+        [self.monster3
+         //            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+         flyAndLandTopAtX:100 Duration:2.0];
+        
+        //monster4
+        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
+        self.monster4.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
+                                             300);
+        
+        [self.monster4 setBorderBounds:bounds];
+        
+        [self addChild:self.monster4];
+        
+        [self.monster4 animateFly];
+        //        [self.monster walkLeft];
+        //        [self.monster walkRight];
+        //        [self.monster walkTop];
+        //        [self.monster walkBottom];
+        
+        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
+        [self.monster4
+         //            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+         flyAndLandBottomAtX:200 Duration:2.0];
         
     }
     return self;

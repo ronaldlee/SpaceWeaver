@@ -27,8 +27,7 @@
 
 - (id)initWithScale:(CGFloat)scale StartX:(CGFloat)s_x StartY:(CGFloat)s_y;
 
--(void)setBorderTopY:(float)player_top_border_y LeftX:(float)player_left_border_x
-             BottomY:(float)player_bottom_border_y RightX:(float)player_right_border_x;
+-(void)setBorderBounds:(CGRect)bounds;
 
 -(void)animateFly;
 
@@ -42,5 +41,8 @@
 
 -(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration;
 -(void)flyAndLandRightAtY:(CGFloat)land_y Duration:(CGFloat)duration;
+
+-(void)flyAndLandTopAtX:(CGFloat)land_x Duration:(CGFloat)duration;
+-(void)flyAndLandBottomAtX:(CGFloat)land_x Duration:(CGFloat)duration;
 
 @end

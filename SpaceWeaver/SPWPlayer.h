@@ -22,7 +22,6 @@
 -(void)moveLeft;
 -(void)moveRight;
 
--(void)setBorderTopY:(float)player_top_border_y LeftX:(float)player_left_border_x
-             BottomY:(float)player_bottom_border_y RightX:(float)player_right_border_x;
+-(void)setBorderBounds:(CGRect)p_bounds;
 
 @end

@@ -21,6 +21,7 @@
     CGFloat fly_duration;
     
     float start_x, start_y;
+    CGRect bounds;
 }
 @end
 
@@ -120,12 +121,13 @@
     return self;
 }
 
--(void)setBorderTopY:(float)player_top_border_y LeftX:(float)player_left_border_x
-             BottomY:(float)player_bottom_border_y RightX:(float)player_right_border_x {
-    bottom_border_y = player_bottom_border_y;
-    top_border_y = player_top_border_y;
-    left_border_x = player_left_border_x;
-    right_border_x = player_right_border_x;
+-(void)setBorderBounds:(CGRect)p_bounds {
+    bounds = p_bounds;
+    
+    left_border_x = bounds.origin.x;
+    right_border_x = left_border_x+bounds.size.width;
+    bottom_border_y = bounds.origin.y;
+    top_border_y = bottom_border_y+bounds.size.height;
 }
 
 -(void) removeAllHandActions {
@@ -288,7 +290,6 @@
 }
 
 -(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration {
-    CGRect bounds = CGRectMake(left_border_x, bottom_border_y, right_border_x-left_border_x, top_border_y-bottom_border_y);
     
     CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
     CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
@@ -319,8 +320,6 @@
 }
 
 -(void)flyAndLandRightAtY:(CGFloat)land_y Duration:(CGFloat)duration {
-    CGRect bounds = CGRectMake(left_border_x, bottom_border_y, right_border_x-left_border_x, top_border_y-bottom_border_y);
-    
     CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
     CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
     
@@ -344,6 +343,53 @@
     }];
 }
 
+-(void)flyAndLandTopAtX:(CGFloat)land_x Duration:(CGFloat)duration {
+    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
+    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
+    
+    //startx: 100, y: 200+BUD_HEIGHT = 300
+    //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
+    
+    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    
+    UIBezierPath* flyPath = [UIBezierPath bezierPath];
+    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath addCurveToPoint:CGPointMake(land_x,top_border_y)
+               controlPoint1:CGPointMake(land_x+50, (top_border_y-start_y)/2)
+               controlPoint2:CGPointMake(land_x-50, (top_border_y-start_y)/2)];
+    
+    
+    SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
+    //    SKAction *forever = [SKAction repeatActionForever:flyAction];
+    [self runAction:flyAction completion:^(void) {
+        NSLog(@"landed right start walking!");
+        [self walkTop];
+    }];
+}
+
+-(void)flyAndLandBottomAtX:(CGFloat)land_x Duration:(CGFloat)duration {
+    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
+    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
+    
+    //startx: 100, y: 200+BUD_HEIGHT = 300
+    //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
+    
+    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    
+    UIBezierPath* flyPath = [UIBezierPath bezierPath];
+    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath addCurveToPoint:CGPointMake(land_x,bottom_border_y)
+               controlPoint1:CGPointMake(land_x+50, (start_y-bottom_border_y)/2)
+               controlPoint2:CGPointMake(land_x-50, (start_y-bottom_border_y)/2)];
+    
+    
+    SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
+    //    SKAction *forever = [SKAction repeatActionForever:flyAction];
+    [self runAction:flyAction completion:^(void) {
+        NSLog(@"landed right start walking!");
+        [self walkBottom];
+    }];
+}
 
 
 @end
