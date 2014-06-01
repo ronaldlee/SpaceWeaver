@@ -23,6 +23,8 @@
     
     float start_x, start_y;
     CGRect bounds;
+    CGFloat move_speed;
+    float scaled_pixel_widthheight;
 }
 @end
 
@@ -43,9 +45,10 @@
 @synthesize m_hand_3;
 @synthesize m_hand_4;
 
-- (id)initWithScale:(CGFloat)f_scale StartX:(CGFloat)f_sx StartY:(CGFloat)f_sy {
+- (id)initWithScale:(CGFloat)f_scale StartX:(CGFloat)f_sx StartY:(CGFloat)f_sy MoveSpeed:(CGFloat)mv_speed{
     self = [super init];
     if (self) {
+        move_speed = mv_speed;
         fly_duration = 0.2;
         
         // Initialize self.
@@ -56,7 +59,7 @@
         
         player_current_border = BORDER_BOTTOM;
         
-        float scaled_pixel_widthheight = PIXEL_WIDTHHEIGHT*scale;
+        scaled_pixel_widthheight = PIXEL_WIDTHHEIGHT*scale;
         
         max_width = scaled_pixel_widthheight*5;
         max_height = max_width;
@@ -123,7 +126,12 @@
 }
 
 -(void)setBorderBounds:(CGRect)p_bounds {
-    bounds = p_bounds;
+//    bounds = p_bounds;
+    
+    bounds = CGRectMake(p_bounds.origin.x-4,//scaled_pixel_widthheight,
+                        p_bounds.origin.y-2,
+                        p_bounds.size.width + 6, //scaled_pixel_widthheight,
+                        p_bounds.size.height + 4);
     
     left_border_x = bounds.origin.x;
     right_border_x = left_border_x+bounds.size.width;
@@ -200,6 +208,32 @@
     //hand 4 (move to its original position and stop)
     mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     [m_hand_4 runAction:mh_act_up];
+    
+    //actually moving
+    CGFloat player_x = self.position.x;
+    CGFloat player_y = self.position.y;
+    BOOL isMoveUp = true;
+    
+    if (isMoveUp) {
+        CGFloat distance = top_border_y-player_y;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToY:top_border_y duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+    else {
+        
+        CGFloat distance = player_y-bottom_border_y;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToY:bottom_border_y duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+
 }
 
 -(void)walkRight {
@@ -230,6 +264,32 @@
     //hand 3 (move to its original position and stop)
     mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     [m_hand_3 runAction:mh_act_up];
+    
+    //actually moving
+    CGFloat player_x = self.position.x;
+    CGFloat player_y = self.position.y;
+    BOOL isMoveUp = true;
+    
+    if (isMoveUp) {
+        CGFloat distance = top_border_y-player_y;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToY:top_border_y duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+    else {
+        
+        CGFloat distance = player_y-bottom_border_y;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToY:bottom_border_y duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+
 }
 
 -(void)walkTop {
@@ -292,13 +352,13 @@
 
 -(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration {
     
-    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
-    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
+//    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
+//    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
     
     //startx: 100, y: 200+BUD_HEIGHT = 300
     //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
     
-    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+//    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
     [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];

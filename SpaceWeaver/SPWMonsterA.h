@@ -25,7 +25,7 @@
 @property (nonatomic) SKSpriteNode * m_hand_3;
 @property (nonatomic) SKSpriteNode * m_hand_4;
 
-- (id)initWithScale:(CGFloat)scale StartX:(CGFloat)s_x StartY:(CGFloat)s_y;
+- (id)initWithScale:(CGFloat)scale StartX:(CGFloat)s_x StartY:(CGFloat)s_y MoveSpeed:(CGFloat)mv_speed;
 
 -(void)setBorderBounds:(CGRect)bounds;
 
