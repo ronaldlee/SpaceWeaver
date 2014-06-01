@@ -11,6 +11,7 @@
 		B44E8761193A2E9700C1601A /* SPWGraphic.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E8760193A2E9700C1601A /* SPWGraphic.m */; };
 		B44E8764193A58BF00C1601A /* SPWMonsterA.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E8763193A58BF00C1601A /* SPWMonsterA.m */; };
 		B44E8767193B07BA00C1601A /* SPWStage1Schedule.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E8766193B07BA00C1601A /* SPWStage1Schedule.m */; };
+		B44E876A193B0B0900C1601A /* SPWFlyPatternUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E8769193B0B0900C1601A /* SPWFlyPatternUtil.m */; };
 		B46E44611933A2D5002105D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44601933A2D5002105D0 /* Foundation.framework */; };
 		B46E44631933A2D5002105D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44621933A2D5002105D0 /* CoreGraphics.framework */; };
 		B46E44651933A2D5002105D0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B46E44641933A2D5002105D0 /* UIKit.framework */; };
@@ -51,6 +52,8 @@
 		B44E8763193A58BF00C1601A /* SPWMonsterA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWMonsterA.m; sourceTree = "<group>"; };
 		B44E8765193B07BA00C1601A /* SPWStage1Schedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWStage1Schedule.h; sourceTree = "<group>"; };
 		B44E8766193B07BA00C1601A /* SPWStage1Schedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWStage1Schedule.m; sourceTree = "<group>"; };
+		B44E8768193B0B0900C1601A /* SPWFlyPatternUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPWFlyPatternUtil.h; sourceTree = "<group>"; };
+		B44E8769193B0B0900C1601A /* SPWFlyPatternUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWFlyPatternUtil.m; sourceTree = "<group>"; };
 		B46E445D1933A2D5002105D0 /* SpaceWeaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceWeaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B46E44601933A2D5002105D0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B46E44621933A2D5002105D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -159,6 +162,8 @@
 				B44E8763193A58BF00C1601A /* SPWMonsterA.m */,
 				B44E8765193B07BA00C1601A /* SPWStage1Schedule.h */,
 				B44E8766193B07BA00C1601A /* SPWStage1Schedule.m */,
+				B44E8768193B0B0900C1601A /* SPWFlyPatternUtil.h */,
+				B44E8769193B0B0900C1601A /* SPWFlyPatternUtil.m */,
 			);
 			path = SpaceWeaver;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				B44E8767193B07BA00C1601A /* SPWStage1Schedule.m in Sources */,
 				B44E875E193A216E00C1601A /* SPWPlayer.m in Sources */,
 				B44E8764193A58BF00C1601A /* SPWMonsterA.m in Sources */,
+				B44E876A193B0B0900C1601A /* SPWFlyPatternUtil.m in Sources */,
 				B46E447F1933A2D5002105D0 /* SPWMyScene.m in Sources */,
 				B46E446F1933A2D5002105D0 /* main.m in Sources */,
 				B46E44A91933A785002105D0 /* SPWConstants.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "SPWMonsterA.h"
 #import "SPWGraphic.h"
+#import "SPWFlyPatternUtil.h"
 
 @interface SPWMonsterA() {
     bool isWeaveMode;
@@ -300,17 +301,14 @@
     NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
-    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(left_border_x, land_y)
 //               controlPoint1:CGPointMake(150, start_y+50)
 //               controlPoint2:CGPointMake(150, start_y-100)];
 //               controlPoint1:randP1
 //               controlPoint2:randP2];
-               controlPoint1:CGPointMake((start_x-left_border_x)/2, land_y+50)
-               controlPoint2:CGPointMake((start_x-left_border_x)/2, land_y-50)];
-
-    
-
+               controlPoint1:CGPointMake((self.position.x-left_border_x)/2, land_y+50)
+               controlPoint2:CGPointMake((self.position.x-left_border_x)/2, land_y-50)];
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
 //    SKAction *forever = [SKAction repeatActionForever:flyAction];
@@ -329,10 +327,10 @@
     NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
-    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(right_border_x, land_y)
-               controlPoint1:CGPointMake((start_x-left_border_x)/2, land_y+50)
-               controlPoint2:CGPointMake((start_x-left_border_x)/2, land_y-50)];
+               controlPoint1:CGPointMake((self.position.x-left_border_x)/2, land_y+50)
+               controlPoint2:CGPointMake((self.position.x-left_border_x)/2, land_y-50)];
 
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
@@ -353,10 +351,10 @@
     NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
-    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(land_x,top_border_y)
-               controlPoint1:CGPointMake(land_x+50, (top_border_y-start_y)/2)
-               controlPoint2:CGPointMake(land_x-50, (top_border_y-start_y)/2)];
+               controlPoint1:CGPointMake(land_x+50, (top_border_y-self.position.y)/2)
+               controlPoint2:CGPointMake(land_x-50, (top_border_y-self.position.y)/2)];
     
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
@@ -377,10 +375,10 @@
     NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
-    [flyPath moveToPoint:CGPointMake(start_x, start_y)];
+    [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(land_x,bottom_border_y)
-               controlPoint1:CGPointMake(land_x+50, (start_y-bottom_border_y)/2)
-               controlPoint2:CGPointMake(land_x-50, (start_y-bottom_border_y)/2)];
+               controlPoint1:CGPointMake(land_x+50, (self.position.y-bottom_border_y)/2)
+               controlPoint2:CGPointMake(land_x-50, (self.position.y-bottom_border_y)/2)];
     
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
@@ -389,6 +387,14 @@
         NSLog(@"landed right start walking!");
         [self walkBottom];
     }];
+}
+
+-(void)hover:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block {
+    [SPWFlyPatternUtil hoverTarget:self Duration:duration Loop:loop completion:block];
+}
+
+-(void)hoverInfinitySymbol:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block {
+    [SPWFlyPatternUtil hoverInfinitySymbolTarget:self Radius:10 Duration:duration Loop:loop completion:block];
 }
 
 

@@ -34,4 +34,6 @@ typedef enum {
     BORDER_RIGHT,
 }BORDER;
 
+#define DEGREES_TO_RADIANS(degrees) ((M_PI*degrees)/180)
+
 @end

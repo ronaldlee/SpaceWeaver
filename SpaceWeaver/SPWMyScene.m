@@ -9,6 +9,7 @@
 #import "SPWMyScene.h"
 #import "SPWPlayer.h"
 #import "SPWMonsterA.h"
+#import "SPWStage1Schedule.h"
 
 @interface SPWMyScene () {
     UISwipeGestureRecognizer* swipeUpGestureRecognizer;
@@ -31,11 +32,13 @@
 }
 
 @property (nonatomic) SPWPlayer * player;
-@property (nonatomic) SPWMonsterA * monster,*monster2,*monster3,*monster4;
+@property (nonatomic) SPWStage1Schedule * stage1;
 
 @end
 
 @implementation SPWMyScene
+
+@synthesize stage1;
 
 -(void) didMoveToView:(SKView *)view {
     swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpFrom:)];
@@ -105,84 +108,9 @@
         
         [self addChild:self.player];
         
-        //add monster
-        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
-        self.monster.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-                                           300);
+        stage1 = [[SPWStage1Schedule alloc] initWithScale:scale Bounds:bounds Scene:self];
         
-        [self.monster setBorderBounds:bounds];
-        
-        [self addChild:self.monster];
-        
-        [self.monster animateFly];
-//        [self.monster walkLeft];
-//        [self.monster walkRight];
-//        [self.monster walkTop];
-//        [self.monster walkBottom];
-        
-//        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
-        [self.monster flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
-//        [self.monster flyAndLandRightAtY:BOTTOM_HUD_HEIGHT+50 Duration:2.0];
-        
-        //monster2
-        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
-        self.monster2.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-                                            300);
-        
-        [self.monster2 setBorderBounds:bounds];
-        
-        [self addChild:self.monster2];
-        
-        [self.monster2 animateFly];
-        //        [self.monster walkLeft];
-        //        [self.monster walkRight];
-        //        [self.monster walkTop];
-        //        [self.monster walkBottom];
-        
-        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
-        [self.monster2
-//            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
-            flyAndLandRightAtY:BOTTOM_HUD_HEIGHT+50 Duration:2.0];
-        
-        //monster3
-        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
-        self.monster3.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-                                             300);
-        
-        [self.monster3 setBorderBounds:bounds];
-        
-        [self addChild:self.monster3];
-        
-        [self.monster3 animateFly];
-        //        [self.monster walkLeft];
-        //        [self.monster walkRight];
-        //        [self.monster walkTop];
-        //        [self.monster walkBottom];
-        
-        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
-        [self.monster3
-         //            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
-         flyAndLandTopAtX:100 Duration:2.0];
-        
-        //monster4
-        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT];
-        self.monster4.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-                                             300);
-        
-        [self.monster4 setBorderBounds:bounds];
-        
-        [self addChild:self.monster4];
-        
-        [self.monster4 animateFly];
-        //        [self.monster walkLeft];
-        //        [self.monster walkRight];
-        //        [self.monster walkTop];
-        //        [self.monster walkBottom];
-        
-        //        [self.monster flyAndLandLeftAtY:BOTTOM_HUD_HEIGHT+50];
-        [self.monster4
-         //            flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
-         flyAndLandBottomAtX:200 Duration:2.0];
+        [stage1 start];
         
     }
     return self;

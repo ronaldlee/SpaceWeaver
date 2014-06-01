@@ -45,4 +45,8 @@
 -(void)flyAndLandTopAtX:(CGFloat)land_x Duration:(CGFloat)duration;
 -(void)flyAndLandBottomAtX:(CGFloat)land_x Duration:(CGFloat)duration;
 
+-(void)hover:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block;
+
+-(void)hoverInfinitySymbol:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block;
+
 @end
