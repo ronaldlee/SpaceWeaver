@@ -127,11 +127,18 @@
 
 -(void)setBorderBounds:(CGRect)p_bounds {
 //    bounds = p_bounds;
+    NSLog(@"setborderbounds p_bounds: x: %f, y: %f, width: %f, height: %f",
+          p_bounds.origin.x,p_bounds.origin.y,
+          p_bounds.size.width,p_bounds.size.height);
     
     bounds = CGRectMake(p_bounds.origin.x-4,//scaled_pixel_widthheight,
                         p_bounds.origin.y-2,
                         p_bounds.size.width + 6, //scaled_pixel_widthheight,
                         p_bounds.size.height + 4);
+    
+    NSLog(@"setborderbounds bounds: x: %f, y: %f, width: %f, height: %f",
+          bounds.origin.x,bounds.origin.y,
+          bounds.size.width,bounds.size.height);
     
     left_border_x = bounds.origin.x;
     right_border_x = left_border_x+bounds.size.width;
@@ -378,15 +385,21 @@
 }
 
 -(void)flyAndLandRightAtY:(CGFloat)land_y Duration:(CGFloat)duration {
-    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
-    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
+//    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
+//    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
     
     //startx: 100, y: 200+BUD_HEIGHT = 300
     //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
     
-    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+//    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    
+    NSLog(@"fly and land right x: %f",right_border_x);
+    
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
+    
+    NSLog(@"landed right starting x: self x: %f",self.position.x);
+    
     [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(right_border_x, land_y)
                controlPoint1:CGPointMake((self.position.x-left_border_x)/2, land_y+50)
@@ -395,9 +408,16 @@
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
     //    SKAction *forever = [SKAction repeatActionForever:flyAction];
+    
+    
     [self runAction:flyAction completion:^(void) {
-        NSLog(@"landed right start walking!");
-        [self walkRight];
+        NSLog(@"landed right start walking!: self x: %f",self.position.x);
+//        self.position.x = right_border_x;
+        
+        SKAction *movePlayer = [SKAction moveToX:right_border_x duration:0.0];
+        [self runAction:movePlayer completion:^{
+            [self walkRight];
+        }];
     }];
 }
 
