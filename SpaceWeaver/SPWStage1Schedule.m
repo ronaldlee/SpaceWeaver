@@ -29,36 +29,28 @@
         //instantiates monsters
         CGFloat mv_speed = 10;
         
-        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT
+        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:50 StartY:300+BOTTOM_HUD_HEIGHT
                                                 MoveSpeed:mv_speed];
-        self.monster.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-                                            300);
         
         [self.monster setBorderBounds:bounds];
         
         //monster2
-//        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT
-//                                                MoveSpeed:mv_speed];
-//        self.monster2.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-//                                             300);
-//        
-//        [self.monster2 setBorderBounds:bounds];
-//        
-//        //monster3
-//        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT
-//                                                 MoveSpeed:mv_speed];
-//        self.monster3.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-//                                             300);
-//        
-//        [self.monster3 setBorderBounds:bounds];
-//        
-//        //monster4
-//        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:200+BOTTOM_HUD_HEIGHT
-//                                                 MoveSpeed:mv_speed];
-//        self.monster4.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
-//                                             300);
-//        
-//        [self.monster4 setBorderBounds:bounds];
+        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:300+BOTTOM_HUD_HEIGHT
+                                                MoveSpeed:mv_speed];
+        
+        [self.monster2 setBorderBounds:bounds];
+        
+        //monster3
+        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:150 StartY:300+BOTTOM_HUD_HEIGHT
+                                                 MoveSpeed:mv_speed];
+        
+        [self.monster3 setBorderBounds:bounds];
+        
+        //monster4
+        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:200 StartY:300+BOTTOM_HUD_HEIGHT
+                                                 MoveSpeed:mv_speed];
+        
+        [self.monster4 setBorderBounds:bounds];
         
         
     }
@@ -77,16 +69,32 @@
 -(void)wave1 {
     NSLog(@"wave1");
     [scene addChild:self.monster];
-    
     [self.monster animateFly];
-    
-    //hover continuously for 10 seconds
     [self.monster hoverInfinitySymbol:1.0 Loop:1 completion:^(void) {
-        [self.monster flyAndLandRightAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+        //then fly to borders
+        [self.monster flyAndLandRightAtY:200 Duration:1.0];
     }];
     
-    //then fly to borders
-//    [self.monster flyAndLandLeftAtY:200+BOTTOM_HUD_HEIGHT Duration:1.0];
+    [scene addChild:self.monster2];
+    [self.monster2 animateFly];
+    [self.monster2 hoverInfinitySymbol:1.0 Loop:1 completion:^(void) {
+        //then fly to borders
+        [self.monster2 flyAndLandLeftAtY:300 Duration:1.0];
+    }];
+    
+    [scene addChild:self.monster3];
+    [self.monster3 animateFly];
+    [self.monster3 hoverInfinitySymbol:1.0 Loop:1 completion:^(void) {
+        //then fly to borders
+        [self.monster3 flyAndLandTopAtX:100 Duration:1.0];
+    }];
+    
+    [scene addChild:self.monster4];
+    [self.monster4 animateFly];
+    [self.monster4 hoverInfinitySymbol:1.0 Loop:1 completion:^(void) {
+        //then fly to borders
+        [self.monster4 flyAndLandBottomAtX:250 Duration:1.0];
+    }];
 }
 
 @end

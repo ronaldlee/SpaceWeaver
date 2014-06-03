@@ -57,6 +57,8 @@
         start_x = f_sx;
         start_y = f_sy;
         
+        self.position = CGPointMake(start_x, start_y);
+        
         player_current_border = BORDER_BOTTOM;
         
         scaled_pixel_widthheight = PIXEL_WIDTHHEIGHT*scale;
@@ -131,10 +133,10 @@
           p_bounds.origin.x,p_bounds.origin.y,
           p_bounds.size.width,p_bounds.size.height);
     
-    bounds = CGRectMake(p_bounds.origin.x-4,//scaled_pixel_widthheight,
+    bounds = CGRectMake(p_bounds.origin.x-2,//scaled_pixel_widthheight,
                         p_bounds.origin.y-2,
-                        p_bounds.size.width + 6, //scaled_pixel_widthheight,
-                        p_bounds.size.height + 4);
+                        p_bounds.size.width + 4, //scaled_pixel_widthheight,
+                        p_bounds.size.height+4);
     
     NSLog(@"setborderbounds bounds: x: %f, y: %f, width: %f, height: %f",
           bounds.origin.x,bounds.origin.y,
@@ -187,9 +189,25 @@
     [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
 }
 
+-(void)moveAllHandsToOriginPos {
+    SKAction *mh_act = [SKAction moveTo:CGPointMake(0, 0) duration:fly_duration];
+    [m_hand_1 runAction:mh_act];
+    
+    mh_act = [SKAction moveTo:CGPointMake(max_width-PIXEL_WIDTHHEIGHT*scale, 0) duration:fly_duration];
+    [m_hand_2 runAction:mh_act];
+    
+    mh_act = [SKAction moveTo:CGPointMake(0,max_height-PIXEL_WIDTHHEIGHT*scale) duration:fly_duration];
+    [m_hand_3 runAction:mh_act];
+    
+    mh_act = [SKAction moveTo:CGPointMake(max_width-PIXEL_WIDTHHEIGHT*scale,max_height-PIXEL_WIDTHHEIGHT*scale) duration:fly_duration];
+    [m_hand_4 runAction:mh_act];
+}
+
 -(void)walkLeft {
     [self removeAllHandActions];
     
+    [self moveAllHandsToOriginPos];
+
     //hand 1
     SKAction *mh_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
@@ -207,14 +225,6 @@
     sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
     
     [m_hand_3 runAction:[SKAction repeatActionForever:sequence]];
-    
-    //hand 2 (move to its original position and stop)
-    mh_act_down = [SKAction moveToY:0 duration:fly_duration];
-    [m_hand_2 runAction:mh_act_down];
-    
-    //hand 4 (move to its original position and stop)
-    mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
-    [m_hand_4 runAction:mh_act_up];
     
     //actually moving
     CGFloat player_x = self.position.x;
@@ -246,6 +256,8 @@
 -(void)walkRight {
     [self removeAllHandActions];
     
+    [self moveAllHandsToOriginPos];
+    
     //hand 2
     SKAction *mh_act_up = [SKAction moveToY:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
@@ -263,14 +275,6 @@
     sequence=[SKAction sequence:@[mh_act_down,mh_act_up]];
     
     [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
-    
-    //hand 1 (move to its original position and stop)
-    mh_act_down = [SKAction moveToY:0 duration:fly_duration];
-    [m_hand_1 runAction:mh_act_down];
-    
-    //hand 3 (move to its original position and stop)
-    mh_act_up = [SKAction moveToY:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
-    [m_hand_3 runAction:mh_act_up];
     
     //actually moving
     CGFloat player_x = self.position.x;
@@ -302,6 +306,8 @@
 -(void)walkTop {
     [self removeAllHandActions];
     
+    [self moveAllHandsToOriginPos];
+    
     SKAction *mh_act_right = [SKAction moveToX:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
     SKAction *mh_act_left = [SKAction moveToX:0 duration:fly_duration];
@@ -319,17 +325,13 @@
     
     [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
     
-    //hand 1 (move to its original position and stop)
-    mh_act_left = [SKAction moveToX:0 duration:fly_duration];
-    [m_hand_1 runAction:mh_act_left];
-    
-    //hand 2 (move to its original position and stop)
-    mh_act_right = [SKAction moveToX:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
-    [m_hand_2 runAction:mh_act_right];
+
 }
 
 -(void)walkBottom {
     [self removeAllHandActions];
+    
+    [self moveAllHandsToOriginPos];
     
     SKAction *mh_act_right = [SKAction moveToX:PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
     
@@ -358,6 +360,7 @@
 }
 
 -(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration {
+    land_y += bottom_border_y;
     
 //    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
 //    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
@@ -380,21 +383,18 @@
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
 //    SKAction *forever = [SKAction repeatActionForever:flyAction];
     [self runAction:flyAction completion:^(void) {
-        [self walkLeft];
+        
+        SKAction *movePlayer = [SKAction moveToX:left_border_x duration:0.0];
+        [self runAction:movePlayer completion:^{
+            [self walkLeft];
+        }];
     }];
 }
 
 -(void)flyAndLandRightAtY:(CGFloat)land_y Duration:(CGFloat)duration {
-//    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
-//    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
-    
-    //startx: 100, y: 200+BUD_HEIGHT = 300
-    //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
-    
-//    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    land_y += bottom_border_y;
     
     NSLog(@"fly and land right x: %f",right_border_x);
-    
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
     
@@ -402,8 +402,8 @@
     
     [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(right_border_x, land_y)
-               controlPoint1:CGPointMake((self.position.x-left_border_x)/2, land_y+50)
-               controlPoint2:CGPointMake((self.position.x-left_border_x)/2, land_y-50)];
+               controlPoint1:CGPointMake(self.position.x+(self.position.x-left_border_x)/2, land_y+50)
+               controlPoint2:CGPointMake(self.position.x+(self.position.x-left_border_x)/2, land_y-50)];
 
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
@@ -422,37 +422,29 @@
 }
 
 -(void)flyAndLandTopAtX:(CGFloat)land_x Duration:(CGFloat)duration {
-    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
-    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
-    
-    //startx: 100, y: 200+BUD_HEIGHT = 300
-    //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
-    
-    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    land_x += left_border_x;
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
     [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
     [flyPath addCurveToPoint:CGPointMake(land_x,top_border_y)
-               controlPoint1:CGPointMake(land_x+50, (top_border_y-self.position.y)/2)
-               controlPoint2:CGPointMake(land_x-50, (top_border_y-self.position.y)/2)];
+               controlPoint1:CGPointMake(land_x+50, self.position.y+(top_border_y-self.position.y)/2)
+               controlPoint2:CGPointMake(land_x-50, self.position.y+(top_border_y-self.position.y)/2)];
     
     
     SKAction* flyAction = [SKAction followPath:flyPath.CGPath asOffset:NO orientToPath:NO duration:duration];
     //    SKAction *forever = [SKAction repeatActionForever:flyAction];
     [self runAction:flyAction completion:^(void) {
         NSLog(@"landed right start walking!");
-        [self walkTop];
+        
+        SKAction *movePlayer = [SKAction moveToY:top_border_y duration:0.0];
+        [self runAction:movePlayer completion:^{
+            [self walkTop];
+        }];
     }];
 }
 
 -(void)flyAndLandBottomAtX:(CGFloat)land_x Duration:(CGFloat)duration {
-    CGPoint randP1 = [SPWGraphic getRandomPoint:bounds];
-    CGPoint randP2 = [SPWGraphic getRandomPoint:bounds];
-    
-    //startx: 100, y: 200+BUD_HEIGHT = 300
-    //p1: {306, 269}; p2: {219, 162} => fly to right and turn and land on left
-    
-    NSLog(@"fly left: p1: %@; p2: %@", NSStringFromCGPoint(randP1), NSStringFromCGPoint(randP2));
+    land_x += left_border_x;
     
     UIBezierPath* flyPath = [UIBezierPath bezierPath];
     [flyPath moveToPoint:CGPointMake(self.position.x, self.position.y)];
@@ -465,7 +457,11 @@
     //    SKAction *forever = [SKAction repeatActionForever:flyAction];
     [self runAction:flyAction completion:^(void) {
         NSLog(@"landed right start walking!");
-        [self walkBottom];
+        
+        SKAction *movePlayer = [SKAction moveToY:bottom_border_y duration:0.0];
+        [self runAction:movePlayer completion:^{
+            [self walkBottom];
+        }];
     }];
 }
 
