@@ -19,6 +19,7 @@
 @property (nonatomic) SKSpriteNode * m_body_7;
 @property (nonatomic) SKSpriteNode * m_body_8;
 @property (nonatomic) SKSpriteNode * m_eye;
+//@property (nonatomic) SKEmitterNode * m_eye;
 
 @property (nonatomic) SKSpriteNode * m_hand_1;
 @property (nonatomic) SKSpriteNode * m_hand_2;

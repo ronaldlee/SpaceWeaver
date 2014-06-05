@@ -84,6 +84,9 @@
         [self addChild:m_body_4];
         m_body_4.position = CGPointMake(scaled_pixel_widthheight,m_body_1.position.y+scaled_pixel_widthheight);
         
+//        NSString* burstPath = [[NSBundle mainBundle] pathForResource:@"MonsterEye" ofType:@"sks"];
+//        m_eye = [NSKeyedUnarchiver unarchiveObjectWithFile:burstPath];
+        
         m_eye = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createRedBlockImage:scale]]];
         [self addChild:m_eye];
         m_eye.position = CGPointMake(m_body_4.position.x+scaled_pixel_widthheight,m_body_4.position.y);
@@ -325,6 +328,30 @@
     
     [m_hand_4 runAction:[SKAction repeatActionForever:sequence]];
     
+    //actually moving
+    CGFloat player_x = self.position.x;
+    CGFloat player_y = self.position.y;
+    BOOL isMoveLeft = true;
+    
+    if (isMoveLeft) {
+        CGFloat distance = player_x-left_border_x;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToX:left_border_x duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+    else {
+        
+        CGFloat distance = player_x-right_border_x;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToX:right_border_x duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
 
 }
 
@@ -350,13 +377,30 @@
     
     [m_hand_2 runAction:[SKAction repeatActionForever:sequence]];
     
-    //hand 3 (move to its original position and stop)
-    mh_act_left = [SKAction moveToX:0 duration:fly_duration];
-    [m_hand_3 runAction:mh_act_left];
+    //actually moving
+    CGFloat player_x = self.position.x;
+    CGFloat player_y = self.position.y;
+    BOOL isMoveLeft = true;
     
-    //hand 4 (move to its original position and stop)
-    mh_act_right = [SKAction moveToX:max_height-PIXEL_WIDTHHEIGHT*scale duration:fly_duration];
-    [m_hand_4 runAction:mh_act_right];
+    if (isMoveLeft) {
+        CGFloat distance = player_x-left_border_x;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToX:left_border_x duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
+    else {
+        
+        CGFloat distance = player_x-right_border_x;
+        CGFloat duration = distance/move_speed;
+        
+        SKAction *movePlayer = [SKAction moveToX:right_border_x duration:duration];
+        
+        [self runAction:movePlayer completion:^{
+        }];
+    }
 }
 
 -(void)flyAndLandLeftAtY:(CGFloat)land_y Duration:(CGFloat)duration {
