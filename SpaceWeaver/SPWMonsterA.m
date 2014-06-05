@@ -24,7 +24,8 @@
     float start_x, start_y;
     CGRect bounds;
     CGFloat move_speed;
-    float scaled_pixel_widthheight;
+    float scaled_pixel_width;
+    float scaled_pixel_height;
 }
 @end
 
@@ -61,70 +62,71 @@
         
         player_current_border = BORDER_BOTTOM;
         
-        scaled_pixel_widthheight = PIXEL_WIDTHHEIGHT*scale;
+        scaled_pixel_width = PIXEL_WIDTHHEIGHT*scale;
+        scaled_pixel_height = scaled_pixel_width;
         
-        max_width = scaled_pixel_widthheight*5;
+        max_width = scaled_pixel_width*5;
         max_height = max_width;
         
         //body
-        m_body_1 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_1 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_1];
-        m_body_1.position = CGPointMake(scaled_pixel_widthheight,scaled_pixel_widthheight);
+        m_body_1.position = CGPointMake(scaled_pixel_width,scaled_pixel_height);
         
-        m_body_2 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_2 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_2];
-        m_body_2.position = CGPointMake(m_body_1.position.x+scaled_pixel_widthheight,m_body_1.position.y);
+        m_body_2.position = CGPointMake(m_body_1.position.x+scaled_pixel_width,m_body_1.position.y);
         
-        m_body_3 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_3 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_3];
-        m_body_3.position = CGPointMake(m_body_2.position.x+scaled_pixel_widthheight,m_body_1.position.y);
+        m_body_3.position = CGPointMake(m_body_2.position.x+scaled_pixel_width,m_body_1.position.y);
         
         
-        m_body_4 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_4 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_4];
-        m_body_4.position = CGPointMake(scaled_pixel_widthheight,m_body_1.position.y+scaled_pixel_widthheight);
+        m_body_4.position = CGPointMake(scaled_pixel_width,m_body_1.position.y+scaled_pixel_height);
         
 //        NSString* burstPath = [[NSBundle mainBundle] pathForResource:@"MonsterEye" ofType:@"sks"];
 //        m_eye = [NSKeyedUnarchiver unarchiveObjectWithFile:burstPath];
         
-        m_eye = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createRedBlockImage:scale]]];
+        m_eye = [SKSpriteNode spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_eye];
-        m_eye.position = CGPointMake(m_body_4.position.x+scaled_pixel_widthheight,m_body_4.position.y);
+        m_eye.position = CGPointMake(m_body_4.position.x+scaled_pixel_width,m_body_4.position.y);
         
-        m_body_5 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_5 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_5];
-        m_body_5.position = CGPointMake(m_eye.position.x+scaled_pixel_widthheight,m_body_4.position.y);
+        m_body_5.position = CGPointMake(m_eye.position.x+scaled_pixel_width,m_body_4.position.y);
         
         
-        m_body_6 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_6 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_6];
-        m_body_6.position = CGPointMake(scaled_pixel_widthheight,m_body_4.position.y+scaled_pixel_widthheight);
+        m_body_6.position = CGPointMake(scaled_pixel_width,m_body_4.position.y+scaled_pixel_height);
         
-        m_body_7 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_7 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_7];
-        m_body_7.position = CGPointMake(m_body_6.position.x+scaled_pixel_widthheight,m_body_6.position.y);
+        m_body_7.position = CGPointMake(m_body_6.position.x+scaled_pixel_width,m_body_6.position.y);
         
-        m_body_8 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_body_8 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_body_8];
-        m_body_8.position = CGPointMake(m_body_7.position.x+scaled_pixel_widthheight,m_body_6.position.y);
+        m_body_8.position = CGPointMake(m_body_7.position.x+scaled_pixel_width,m_body_6.position.y);
         
         //lower hands
-        m_hand_1 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_hand_1 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_hand_1];
         m_hand_1.position = CGPointMake(0,0);
         
-        m_hand_2 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_hand_2 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_hand_2];
-        m_hand_2.position = CGPointMake(m_body_3.position.x+scaled_pixel_widthheight,0);
+        m_hand_2.position = CGPointMake(m_body_3.position.x+scaled_pixel_width,0);
         
         //upper hands
-        m_hand_3 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_hand_3 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_hand_3];
-        m_hand_3.position = CGPointMake(0,m_body_6.position.y+scaled_pixel_widthheight);
+        m_hand_3.position = CGPointMake(0,m_body_6.position.y+scaled_pixel_height);
         
-        m_hand_4 = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        m_hand_4 = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_pixel_width,scaled_pixel_height)];
         [self addChild:m_hand_4];
-        m_hand_4.position = CGPointMake(m_body_3.position.x+scaled_pixel_widthheight,m_body_6.position.y+scaled_pixel_widthheight);
+        m_hand_4.position = CGPointMake(m_body_3.position.x+scaled_pixel_width,m_body_6.position.y+scaled_pixel_height);
         
     }
     return self;

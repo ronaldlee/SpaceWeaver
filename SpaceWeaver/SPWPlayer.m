@@ -35,21 +35,24 @@
         
         player_current_border = BORDER_BOTTOM;
         
-        self.playerA = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
-        [self addChild:self.playerA];
-        self.playerA.position = CGPointMake(PIXEL_WIDTHHEIGHT*scale,PIXEL_WIDTHHEIGHT*scale);
+        CGFloat scaled_width = PIXEL_WIDTHHEIGHT*scale;
+        CGFloat scaled_height = PIXEL_WIDTHHEIGHT*scale;
         
-        self.playerB = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        self.playerA = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
+        [self addChild:self.playerA];
+        self.playerA.position = CGPointMake(scaled_width,scaled_height);
+        
+        self.playerB = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.playerB];
         self.playerB.position = CGPointMake(0,0);
         
-        self.playerC = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        self.playerC = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.playerC];
-        self.playerC.position = CGPointMake(PIXEL_WIDTHHEIGHT*scale,0);
+        self.playerC.position = CGPointMake(scaled_width,0);
         
-        self.playerD = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
+        self.playerD = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.playerD];
-        self.playerD.position = CGPointMake(PIXEL_WIDTHHEIGHT*2*scale,0);
+        self.playerD.position = CGPointMake(scaled_width*2,0);
     }
     return self;
 }
