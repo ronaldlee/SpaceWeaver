@@ -43,7 +43,6 @@
         self.bullet.position = CGPointMake(scaled_width,scaled_height);
         
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
-//        self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.categoryBitMask = MISSLE_CATEGORY;
         self.physicsBody.contactTestBitMask = ENEMY_CATEGORY;

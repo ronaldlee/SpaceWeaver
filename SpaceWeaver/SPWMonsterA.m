@@ -130,7 +130,6 @@
         
 //        NSLog(@"monster size: width: %d; height: %d", self.size.width, self.size.height );
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(max_width, max_height)];
-//        self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.categoryBitMask = ENEMY_CATEGORY;
         self.physicsBody.contactTestBitMask = PLAYER_CATEGORY | MISSLE_CATEGORY;

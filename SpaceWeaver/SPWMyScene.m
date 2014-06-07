@@ -113,9 +113,9 @@
         
         [self addChild:self.player];
         
-        stage1 = [[SPWStage1Schedule alloc] initWithScale:scale Bounds:bounds Scene:self];
-        
-        [stage1 start];
+//        stage1 = [[SPWStage1Schedule alloc] initWithScale:scale Bounds:bounds Scene:self];
+//        
+//        [stage1 start];
         
     }
     return self;

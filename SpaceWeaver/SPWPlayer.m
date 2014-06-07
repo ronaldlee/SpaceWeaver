@@ -60,7 +60,6 @@
         max_height = scaled_height*2;
         
         self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(max_width, max_height)];
-//        self.physicsBody.dynamic = NO;
         self.physicsBody.affectedByGravity = NO;
         self.physicsBody.categoryBitMask = PLAYER_CATEGORY;
         self.physicsBody.contactTestBitMask = ENEMY_CATEGORY;
@@ -81,8 +80,8 @@
 -(void)moveUp {
     if (isPlayerTransforming) return;
     
-    CGFloat player_x = self.position.x;
-    CGFloat player_y = self.position.y;
+    CGFloat player_x = (CGFloat)((int)self.position.x);
+    CGFloat player_y = (CGFloat)((int)self.position.y);
     
     isWeaveMode=FALSE;
     if (!(player_x == left_border_x) &&
@@ -123,8 +122,8 @@
     NSLog(@"handleSwipeDownFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     
-    CGFloat player_x = self.position.x;
-    CGFloat player_y = self.position.y;
+    CGFloat player_x = (CGFloat)((int)self.position.x);
+    CGFloat player_y = (CGFloat)((int)self.position.y);
     
     isWeaveMode=FALSE;
     if (!(player_x == left_border_x) &&
@@ -167,8 +166,8 @@
     
     //swipe left only work when player's y position is either at top or bottom
     //otherwise, that becomes weaving mode
-    CGFloat player_x = self.position.x;
-    CGFloat player_y = self.position.y;
+    CGFloat player_x = (CGFloat)((int)self.position.x);
+    CGFloat player_y = (CGFloat)((int)self.position.y);
     
     NSLog(@"player_y: %f",player_y);
     
@@ -206,7 +205,6 @@
                 [self playerTransfromTopToLeft];
             }
             
-            
         }];
     }
 }
@@ -216,8 +214,8 @@
     NSLog(@"handleSwipeRightFrom: %d", isPlayerTransforming);
     if (isPlayerTransforming) return;
     
-    CGFloat player_x = self.position.x;
-    CGFloat player_y = self.position.y;
+    CGFloat player_x = (CGFloat)((int)self.position.x);
+    CGFloat player_y = (CGFloat)((int)self.position.y);
     
     isWeaveMode=FALSE;
     if (!(player_y == bottom_border_y) &&
@@ -284,6 +282,7 @@
     duration = distance/SPEED*TRANSFORM_SPEED_FACTOR;
     
     SKAction *movePlayerC = [SKAction moveTo:c_toPoint duration:duration];
+    
     [[self playerC] runAction:movePlayerC completion:^ {
         CGPoint c_toPoint = CGPointMake([self playerC].position.x, PIXEL_WIDTHHEIGHT*scale);
         
@@ -292,6 +291,7 @@
         
         SKAction *movePlayerC2 = [SKAction moveTo:c_toPoint duration:duration];
         [[self playerC] runAction:movePlayerC2 completion:^ {
+            
             player_current_border = BORDER_LEFT;
             isPlayerTransforming = FALSE;
             
