@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface SPWMonsterA : SKSpriteNode
+@interface SPWMonsterA : SKSpriteNode<SPWGameObject>
 
 @property (nonatomic) SKSpriteNode * m_body_1;
 @property (nonatomic) SKSpriteNode * m_body_2;
@@ -49,5 +49,7 @@
 -(void)hover:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block;
 
 -(void)hoverInfinitySymbol:(CGFloat)duration Loop:(int)loop completion:(void(^)(void))block;
+
+-(void)explode;
 
 @end

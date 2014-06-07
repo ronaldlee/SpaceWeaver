@@ -31,7 +31,7 @@
 
 @implementation SPWMonsterA
 
-@synthesize m_body_1;
+@synthesize m_body_1; //bottom
 @synthesize m_body_2;
 @synthesize m_body_3;
 @synthesize m_body_4;
@@ -128,6 +128,13 @@
         [self addChild:m_hand_4];
         m_hand_4.position = CGPointMake(m_body_3.position.x+scaled_pixel_width,m_body_6.position.y+scaled_pixel_height);
         
+//        NSLog(@"monster size: width: %d; height: %d", self.size.width, self.size.height );
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(max_width, max_height)];
+//        self.physicsBody.dynamic = NO;
+        self.physicsBody.affectedByGravity = NO;
+        self.physicsBody.categoryBitMask = ENEMY_CATEGORY;
+        self.physicsBody.contactTestBitMask = PLAYER_CATEGORY | MISSLE_CATEGORY;
+        self.physicsBody.collisionBitMask = 0;
     }
     return self;
 }
@@ -519,5 +526,49 @@
     [SPWFlyPatternUtil hoverInfinitySymbolTarget:self Radius:10 Duration:duration Loop:loop completion:block];
 }
 
+-(void)explodePart:(SKSpriteNode*)part XDiff:(CGFloat)x_diff YDiff:(CGFloat)y_diff
+       FlyDuration:(float)f_duration FadeoutDuration:(float)fo_duration{
+    CGFloat cur_x = part.position.x;
+    CGFloat cur_y = part.position.y;
+    
+    SKAction *rotate = [SKAction rotateByAngle:360.0 duration:f_duration];
+    
+    SKAction *fadeout = [SKAction fadeOutWithDuration:fo_duration];
+    SKAction *m_hand_1_explode = [SKAction moveTo:CGPointMake(cur_x+x_diff, cur_y+y_diff) duration:f_duration];
+    
+    [part runAction:m_hand_1_explode];
+    [part runAction:[SKAction repeatActionForever:rotate]];
+    
+    SKAction *wait = [SKAction waitForDuration:f_duration-fo_duration];
+    SKAction* sequence=[SKAction sequence:@[wait,fadeout]];
+    [part runAction:sequence];
+}
+
+-(void)explode {
+    [self removeAllHandActions];
+    [self removeAllActions];
+
+    float f_duration = 1.0;
+    float fo_duration = 0.2;
+    
+    //hands and eyes just randomly flies away
+    [self explodePart:m_hand_1 XDiff:-20 YDiff:-30 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_hand_2 XDiff:20 YDiff:-30 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_hand_3 XDiff:-20 YDiff:30 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_hand_4 XDiff:20 YDiff:30 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    
+    
+    [self explodePart:m_body_1 XDiff:-10 YDiff:-20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_body_2 XDiff:0 YDiff:-20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_body_3 XDiff:10 YDiff:-20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    
+    [self explodePart:m_body_4 XDiff:-5 YDiff:0 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_eye XDiff:0 YDiff:0 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_body_5 XDiff:5 YDiff:0 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    
+    [self explodePart:m_body_6 XDiff:-10 YDiff:20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_body_7 XDiff:0 YDiff:20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+    [self explodePart:m_body_8 XDiff:10 YDiff:20 FlyDuration:f_duration FadeoutDuration:fo_duration];
+}
 
 @end

@@ -29,25 +29,25 @@
         //instantiates monsters
         CGFloat mv_speed = 10;
         
-        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:50 StartY:300+BOTTOM_HUD_HEIGHT
+        self.monster = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:80 StartY:300+BOTTOM_HUD_HEIGHT
                                                 MoveSpeed:mv_speed];
         
         [self.monster setBorderBounds:bounds];
         
         //monster2
-        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:100 StartY:300+BOTTOM_HUD_HEIGHT
+        self.monster2 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:130 StartY:300+BOTTOM_HUD_HEIGHT
                                                 MoveSpeed:mv_speed];
         
         [self.monster2 setBorderBounds:bounds];
         
         //monster3
-        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:150 StartY:300+BOTTOM_HUD_HEIGHT
+        self.monster3 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:180 StartY:300+BOTTOM_HUD_HEIGHT
                                                  MoveSpeed:mv_speed];
         
         [self.monster3 setBorderBounds:bounds];
         
         //monster4
-        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:200 StartY:300+BOTTOM_HUD_HEIGHT
+        self.monster4 = [[SPWMonsterA alloc] initWithScale:scale/2 StartX:230 StartY:300+BOTTOM_HUD_HEIGHT
                                                  MoveSpeed:mv_speed];
         
         [self.monster4 setBorderBounds:bounds];

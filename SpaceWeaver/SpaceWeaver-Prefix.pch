@@ -15,4 +15,8 @@
     #import <Foundation/Foundation.h>
     #import <math.h>
     #import "SPWConstants.h"
+    #import "SPWGameObject.h"
+#import "SPWPlayer.h"
+#import "SPWMonsterA.h"
+#import "SPWBullet.h"
 #endif

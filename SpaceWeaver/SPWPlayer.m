@@ -16,6 +16,7 @@
     BORDER player_current_border;
     float scale;
     CGRect bounds;
+    float max_width, max_height;
 }
 @end
 
@@ -31,6 +32,7 @@
     self = [super init];
     if (self) {
         // Initialize self.
+        
         scale = f_scale;
         
         player_current_border = BORDER_BOTTOM;
@@ -53,6 +55,16 @@
         self.playerD = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.playerD];
         self.playerD.position = CGPointMake(scaled_width*2,0);
+        
+        max_width = scaled_width*3;
+        max_height = scaled_height*2;
+        
+        self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(max_width, max_height)];
+//        self.physicsBody.dynamic = NO;
+        self.physicsBody.affectedByGravity = NO;
+        self.physicsBody.categoryBitMask = PLAYER_CATEGORY;
+        self.physicsBody.contactTestBitMask = ENEMY_CATEGORY;
+        self.physicsBody.collisionBitMask = 0;
     }
     return self;
 }
@@ -597,6 +609,19 @@
     }];
 }
 
+
+-(void)contactWith:(id<SPWGameObject>)gameObj {
+    //player can only contact with monster
+    
+    //drop eneryg
+    
+    SPWMonsterA* monster = (SPWMonsterA*)gameObj;
+    
+    //monster explode
+    [monster explode];
+    
+    
+}
 
 
 @end

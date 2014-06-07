@@ -9,6 +9,7 @@
 #import "SPWMyScene.h"
 #import "SPWPlayer.h"
 #import "SPWMonsterA.h"
+#import "SPWBullet.h"
 #import "SPWStage1Schedule.h"
 
 @interface SPWMyScene () {
@@ -73,6 +74,10 @@
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        
+        self.physicsWorld.gravity = CGVectorMake(0,0);
+        self.physicsWorld.contactDelegate = self;
+        
         scale = [UIScreen mainScreen].scale;
         
         top_left_corner_x = left_corner_x = BORDER_SIDE_MARGIN;
@@ -114,6 +119,40 @@
         
     }
     return self;
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+//    SKPhysicsBody *playerBody, *enemyBody, *missileBody;
+    
+    NSLog(@"contact!!!");
+    if ((contact.bodyA.categoryBitMask & PLAYER_CATEGORY)!=0) {
+        
+        SPWPlayer *player = (SPWPlayer*)contact.bodyA.node;
+        
+        if ((contact.bodyB.categoryBitMask & ENEMY_CATEGORY) != 0) {
+            SPWMonsterA *monster = (SPWMonsterA*)contact.bodyB.node;
+            
+            NSLog(@"contact!: player and monster");
+            [player contactWith:monster];
+        }
+    }
+    else if ((contact.bodyA.categoryBitMask & ENEMY_CATEGORY) != 0) {
+        SPWMonsterA* enemyBody = contact.bodyA;
+        
+        if ((contact.bodyB.categoryBitMask & MISSLE_CATEGORY) != 0) {
+            SPWBullet* missileBody = contact.bodyB;
+        }
+    }
+//    else if ((contact.bodyA.categoryBitMask & MISSLE_CATEGORY) != 0) {
+//        missileBody = contact.bodyA;
+//        
+//        if ((contact.bodyB.categoryBitMask & ENEMY_CATEGORY) != 0) {
+//            enemyBody = contact.bodyB;
+//        }
+//    }
+
+
 }
 
 //-(UIImage*)createPlayerImage:(int)border {

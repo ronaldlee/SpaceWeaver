@@ -36,4 +36,8 @@ typedef enum {
 
 #define DEGREES_TO_RADIANS(degrees) ((M_PI*degrees)/180)
 
+extern const uint32_t MISSLE_CATEGORY;
+extern const uint32_t PLAYER_CATEGORY;
+extern const uint32_t ENEMY_CATEGORY;
+
 @end

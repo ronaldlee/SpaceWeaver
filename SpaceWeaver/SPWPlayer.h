@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface SPWPlayer : SKSpriteNode
+@interface SPWPlayer : SKSpriteNode<SPWGameObject>
 
 @property (nonatomic) SKSpriteNode * playerA;
 @property (nonatomic) SKSpriteNode * playerB;

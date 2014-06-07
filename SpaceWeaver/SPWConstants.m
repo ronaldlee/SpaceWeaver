@@ -25,5 +25,8 @@ float const BORDER_SIDE_MARGIN=2;
 const CGFloat SPEED = 100;
 float const TRANSFORM_SPEED_FACTOR = 0.5;
 
+const uint32_t MISSLE_CATEGORY  =  0x1 << 0;
+const uint32_t PLAYER_CATEGORY   =  0x1 << 1;
+const uint32_t ENEMY_CATEGORY    =  0x1 << 2;
 
 @end
