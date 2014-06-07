@@ -10,4 +10,6 @@
 
 @interface SPWMyScene : SKScene<SKPhysicsContactDelegate>
 
+@property (nonatomic) SKEmitterNode * space_bg;
+
 @end

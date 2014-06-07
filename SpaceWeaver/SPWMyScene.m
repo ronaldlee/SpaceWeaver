@@ -39,6 +39,7 @@
 
 @implementation SPWMyScene
 
+@synthesize space_bg;
 @synthesize stage1;
 
 -(void) didMoveToView:(SKView *)view {
@@ -105,6 +106,14 @@
                                    player_right_border_x-player_left_border_x,
                                    player_top_border_y-player_bottom_border_y);
         
+        NSString* burstPath = [[NSBundle mainBundle] pathForResource:@"Space" ofType:@"sks"];
+        space_bg = [NSKeyedUnarchiver unarchiveObjectWithFile:burstPath];
+        space_bg.position = CGPointMake(0,[[UIScreen mainScreen] bounds].size.height);
+        
+        [self addChild:space_bg];
+        
+        //====
+        
         self.player = [[SPWPlayer alloc] initWithScale:scale];
         self.player.position = CGPointMake(([[UIScreen mainScreen] bounds].size.width-PLAYER_WIDTH)/2,
                                            player_bottom_border_y);
@@ -113,9 +122,10 @@
         
         [self addChild:self.player];
         
-//        stage1 = [[SPWStage1Schedule alloc] initWithScale:scale Bounds:bounds Scene:self];
-//        
-//        [stage1 start];
+        
+        stage1 = [[SPWStage1Schedule alloc] initWithScale:scale Bounds:bounds Scene:self];
+        
+        [stage1 start];
         
     }
     return self;
