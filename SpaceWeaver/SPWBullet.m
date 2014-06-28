@@ -38,6 +38,8 @@
         CGFloat scaled_width = PIXEL_WIDTHHEIGHT*scale;
         CGFloat scaled_height = PIXEL_WIDTHHEIGHT*scale;
         
+        self.size = CGSizeMake(scaled_width, scaled_height);
+        
         self.bullet = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.bullet];
         self.bullet.position = CGPointMake(scaled_width,scaled_height);

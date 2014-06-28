@@ -15,13 +15,20 @@
 @property (nonatomic) SKSpriteNode * playerC;
 @property (nonatomic) SKSpriteNode * playerD;
 
+//@property (nonatomic) SKEffectNode *effectNodeA;
+
 - (id)initWithScale:(CGFloat)scale;
 
 -(void)moveUp;
 -(void)moveDown;
 -(void)moveLeft;
 -(void)moveRight;
+-(void)stop;
 
 -(void)setBorderBounds:(CGRect)p_bounds;
+
+-(void)toggleFiring;
+-(BOOL)isFiring;
+-(BORDER)getCurrentBorder;
 
 @end

@@ -19,4 +19,6 @@
 #import "SPWPlayer.h"
 #import "SPWMonsterA.h"
 #import "SPWBullet.h"
+#import "SPWGlowFilter.h"
+#import "SPWFireButton.h"
 #endif

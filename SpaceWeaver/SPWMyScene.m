@@ -41,6 +41,7 @@
 
 @synthesize space_bg;
 @synthesize stage1;
+@synthesize fire_button;
 
 -(void) didMoveToView:(SKView *)view {
     swipeUpGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeUpFrom:)];
@@ -76,6 +77,7 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
+        
         self.physicsWorld.gravity = CGVectorMake(0,0);
         self.physicsWorld.contactDelegate = self;
         
@@ -108,9 +110,19 @@
         
         NSString* burstPath = [[NSBundle mainBundle] pathForResource:@"Space" ofType:@"sks"];
         space_bg = [NSKeyedUnarchiver unarchiveObjectWithFile:burstPath];
+        space_bg.userInteractionEnabled = YES;
         space_bg.position = CGPointMake(0,[[UIScreen mainScreen] bounds].size.height);
         
         [self addChild:space_bg];
+        
+        //===
+        CGSize button_size = CGSizeMake(50,50);
+        
+        fire_button = [[SPWFireButton alloc] initWithSize:button_size Name:@"fire_button"];
+//        fire_button.name = @"fire_button";
+        fire_button.userInteractionEnabled = NO;
+        fire_button.position = CGPointMake(left_corner_x, BOTTOM_HUD_HEIGHT - 10 - button_size.height);
+        [self addChild:fire_button];
         
         //====
         
@@ -148,10 +160,23 @@
         }
     }
     else if ((contact.bodyA.categoryBitMask & ENEMY_CATEGORY) != 0) {
-        SPWMonsterA* enemyBody = contact.bodyA;
+        SPWMonsterA* enemyBody = (SPWMonsterA*)contact.bodyA.node;
         
         if ((contact.bodyB.categoryBitMask & MISSLE_CATEGORY) != 0) {
-            SPWBullet* missileBody = contact.bodyB;
+            SPWBullet* missileBody = (SPWBullet*)contact.bodyB.node;
+            
+            NSLog(@"missle hit monster");
+            [enemyBody explode];
+        }
+    }
+    else if ((contact.bodyA.categoryBitMask & MISSLE_CATEGORY) != 0) {
+        SPWBullet* missileBody = (SPWBullet*)contact.bodyA.node;
+        
+        if ((contact.bodyB.categoryBitMask & ENEMY_CATEGORY) != 0) {
+            SPWMonsterA* enemyBody = (SPWMonsterA*)contact.bodyB.node;
+            
+            NSLog(@"missle hit monster");
+            [enemyBody explode];
         }
     }
 //    else if ((contact.bodyA.categoryBitMask & MISSLE_CATEGORY) != 0) {
@@ -280,13 +305,71 @@
 }
 
 -(void)handleTap:(UITapGestureRecognizer*)recognizer {
-    [[self player] removeAllActions];
+//    NSLog(@"tap");
+    [[self player] stop];
 }
 
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    NSLog(@"touch");
     /* Called when a touch begins */
     
+    for (UITouch* touch in touches) {
+//        UITouch* touch = [touches anyObject];
+        CGPoint location = [touch locationInNode:self];
+        SKNode *node = [self nodeAtPoint:location];
+        
+//        NSLog(@"touch class: %@, name: %@" , NSStringFromClass([node class]), node.name);
+        
+        if ([node.name isEqualToString:@"fire_button"]) {
+//        if ([node isEqual:fire_button]) {
+            NSLog(@"fire!!");
+            [self.player toggleFiring];
+            
+            if ([self.player isFiring]) {
+                SKAction* shootBulletAction = [SKAction runBlock:^{
+                    BORDER cur_border = [self.player getCurrentBorder];
+                    CGPoint location = [self.player position];
+                    SPWBullet *bullet = [[SPWBullet alloc]initWithScale:1.0];
+                    
+                    bullet.position = CGPointMake(location.x,location.y+self.player.size.height/2);
+                    //bullet.position = location;
+                    bullet.zPosition = 1;
+                    //                bullet.scale = 0.8;
+                    
+                    SKAction *action = Nil;
+                    SKAction *remove = [SKAction removeFromParent];
+                    float flight_distance = 2000;
+                    CGFloat bullet_speed = 10;
+                    if (cur_border == BORDER_TOP) {
+                        action = [SKAction moveToY:-(flight_distance-self.frame.size.height) duration:bullet_speed];
+                    }
+                    else if (cur_border == BORDER_BOTTOM) {
+                        action = [SKAction moveToY:flight_distance duration:bullet_speed];
+                    }
+                    else if (cur_border == BORDER_LEFT) {
+                        action = [SKAction moveToX:flight_distance duration:bullet_speed];
+                    }
+                    else if (cur_border == BORDER_RIGHT) {
+                        action = [SKAction moveToX:-(flight_distance-self.frame.size.width) duration:bullet_speed];
+                    }
+                    
+                    [bullet runAction:[SKAction sequence:@[action,remove]]];
+                    
+                    [self addChild:bullet];
+                }];// queue:dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)];
+                
+                SKAction *wait = [SKAction waitForDuration:0.4];
+                SKAction *sequence = [SKAction sequence:@[shootBulletAction, wait]];
+                [self runAction:[SKAction repeatActionForever:sequence]];
+            }
+            else {
+                [self removeAllActions];
+            }
+            
+            return;
+        }
+    }
    
 }
 

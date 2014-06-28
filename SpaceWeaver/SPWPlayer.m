@@ -17,6 +17,7 @@
     float scale;
     CGRect bounds;
     float max_width, max_height;
+    BOOL is_firing;
 }
 @end
 
@@ -26,12 +27,15 @@
 @synthesize playerB;
 @synthesize playerC;
 @synthesize playerD;
+//@synthesize effectNodeA;
+
 
 
 - (id)initWithScale:(CGFloat)f_scale {
     self = [super init];
     if (self) {
         // Initialize self.
+        self.userInteractionEnabled = YES;
         
         scale = f_scale;
         
@@ -40,6 +44,7 @@
         CGFloat scaled_width = PIXEL_WIDTHHEIGHT*scale;
         CGFloat scaled_height = PIXEL_WIDTHHEIGHT*scale;
         
+//        self.playerA = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:[SPWGraphic createBlockImage:scale]]];
         self.playerA = [SKSpriteNode spriteNodeWithColor:[UIColor whiteColor] size:CGSizeMake(scaled_width,scaled_height)];
         [self addChild:self.playerA];
         self.playerA.position = CGPointMake(scaled_width,scaled_height);
@@ -64,6 +69,21 @@
         self.physicsBody.categoryBitMask = PLAYER_CATEGORY;
         self.physicsBody.contactTestBitMask = ENEMY_CATEGORY;
         self.physicsBody.collisionBitMask = 0;
+        
+//        effectNodeA = [[SKEffectNode alloc] init];
+//        SPWGlowFilter *glowFilter = [[SPWGlowFilter alloc] init];
+        
+//        [glowFilter setInputCenter:[CIVector vectorWithX:(max_width)/2 Y:max_height/2]];
+//        [glowFilter setGlowColor:[[UIColor whiteColor] colorWithAlphaComponent:1.0]];
+//        [effectNodeA setShouldRasterize:YES];
+//        [effectNodeA setFilter:glowFilter];
+//        [self addChild:effectNodeA];
+//        [effectNodeA addChild:self.playerA];
+//        [effectNodeA addChild:self.playerB];
+//        [effectNodeA addChild:self.playerC];
+//        [effectNodeA addChild:self.playerD];
+        
+        
     }
     return self;
 }
@@ -623,5 +643,23 @@
     
 }
 
+-(void)toggleFiring {
+    is_firing = !is_firing;
+}
+
+-(BOOL)isFiring {
+    return is_firing;
+}
+
+-(void)stop {
+    
+    if (!is_firing) {
+        [self removeAllActions];
+    }
+}
+
+-(BORDER)getCurrentBorder {
+    return player_current_border;
+}
 
 @end

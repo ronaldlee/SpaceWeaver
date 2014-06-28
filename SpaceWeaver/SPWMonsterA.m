@@ -49,6 +49,8 @@
 - (id)initWithScale:(CGFloat)f_scale StartX:(CGFloat)f_sx StartY:(CGFloat)f_sy MoveSpeed:(CGFloat)mv_speed{
     self = [super init];
     if (self) {
+        self.userInteractionEnabled = YES;
+        
         move_speed = mv_speed;
         fly_duration = 0.2;
         
